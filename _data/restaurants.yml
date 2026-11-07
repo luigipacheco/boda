@@ -36,3 +36,27 @@
   tipo_en: Street food
   nota_es: Famoso por sus tortas de chilaquiles
   nota_en: Famous for its tortas de chilaquiles (chilaquiles sandwiches)
+
+- nombre: La Ponderosa
+  tipo_es: Mexicana tradicional
+  tipo_en: Traditional Mexican
+  nota_es: Comida mexicana de siempre
+  nota_en: Classic, traditional Mexican food
+
+- nombre: Enchiladas del Codito
+  tipo_es: Cena
+  tipo_en: Dinner
+  nota_es: Enchiladas estilo León para cenar
+  nota_en: León-style enchiladas, perfect for dinner
+
+- nombre: Tacos Don Luis
+  tipo_es: Tacos · noche
+  tipo_en: Tacos · late night
+  nota_es: Los de la glorieta. Los mejores tacos al pastor de la ciudad
+  nota_en: The ones at the roundabout. Best al pastor tacos in the city
+
+- nombre: Tacos de Millón
+  tipo_es: Tacos · noche
+  tipo_en: Tacos · late night
+  nota_es: En la zona norte, para la cena de madrugada
+  nota_en: North side, for a late-night dinner
