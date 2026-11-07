@@ -2,13 +2,13 @@
 # Edit the values below; everything on the site reads from here.
 
 title: Angela & Luis
-description: Boda de Angela Pérez y Luis Pacheco — León, Guanajuato
+description: Boda de Angela y Luis Pacheco — León, Guanajuato
 url: "https://luigipacheco.github.io"
 baseurl: "/boda"          # change to "" when a custom domain is set
 lang: es
 
 couple:
-  bride: Angela Pérez
+  bride: Angela
   groom: Luis Pacheco
   short: Angela & Luis
 
