@@ -34,12 +34,12 @@ scripts: [/assets/js/countdown.js]
     <p>{{ site.reception.time }} h · {{ site.reception.address }}</p>
   </div>
 </section>
-<p style="margin-top:1.5rem"><a href="{{ '/lugares/' | relative_url }}">{% include t.html es="Cómo llegar y mapas →" en="Directions and maps →" %}</a></p>
+<p class="small" style="margin:0 0 2rem"><a href="{{ '/lugares/' | relative_url }}">{% include t.html es="Cómo llegar y mapas →" en="Directions and maps →" %}</a></p>
 
 <hr class="rule">
 
-<section>
-  <img src="{{ '/assets/img/home.jpg' | relative_url }}" alt="{{ site.couple.bride }} y {{ site.couple.groom }}" loading="lazy" width="1600" height="900">
+<section style="padding-top:0;padding-bottom:0">
+  <figure style="margin:0"><img src="{{ '/assets/img/home.jpg' | relative_url }}" alt="{{ site.couple.bride }} y {{ site.couple.groom }}" loading="lazy" width="1600" height="900"></figure>
 </section>
 
 <hr class="rule">
