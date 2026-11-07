@@ -30,7 +30,7 @@ El aeropuerto más cercano es el **Aeropuerto Internacional de Guanajuato (BJX)*
 - **A Guanajuato capital:** 30–40 min.
 - **A San Miguel de Allende:** 1 h 30 min aprox.
 
-Hay taxis autorizados y renta de autos en el aeropuerto. Uber y Didi funcionan bien dentro de León.
+Hay taxis autorizados y renta de autos en el aeropuerto. **Dentro de León te recomendamos moverte en Uber** (o Didi): funciona muy bien, es económico y evita estacionarse. No hace falta rentar coche si te quedas en la ciudad.
 
 **Opción 2: por Ciudad de México.** Si te conviene más volar al Aeropuerto de la Ciudad de México (MEX), desde ahí puedes tomar un autobús **ETN** directo a León. Sale de la propia terminal del aeropuerto (Terminal 1 y Terminal 2, zona de autobuses foráneos), son asientos reclinables tipo primera clase y el viaje dura **unas 5 horas**. Boletos en [etn.com.mx](https://www.etn.com.mx) o en el mostrador del aeropuerto. También hay salidas frecuentes desde la Terminal Central del Norte (ETN y Primera Plus).
 
@@ -43,7 +43,7 @@ The nearest airport is **Guanajuato International Airport (BJX)**, in Silao. It 
 - **To Guanajuato city:** 30–40 min.
 - **To San Miguel de Allende:** about 1 h 30 min.
 
-Authorised taxis and car rentals are available at the airport. Uber and Didi work well within León.
+Authorised taxis and car rentals are available at the airport. **Within León we recommend getting around by Uber** (or Didi): it works very well, it's inexpensive, and it saves you parking. No need to rent a car if you're staying in the city.
 
 **Option 2: via Mexico City.** If flying into Mexico City (MEX) works better for you, take an **ETN** bus straight to León from the airport itself (Terminal 1 and Terminal 2, intercity bus area). Seats are first-class recliners and the trip takes **about 5 hours**. Tickets at [etn.com.mx](https://www.etn.com.mx) or at the airport counter. There are also frequent departures from the Terminal Central del Norte bus station (ETN and Primera Plus).
 

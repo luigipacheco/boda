@@ -51,8 +51,8 @@ permalink: /lugares/
       <dt>{% include t.html es="Dirección" en="Address" %}</dt><dd>{{ site.reception.address }}</dd>
       <dt>{% include t.html es="Vestimenta" en="Dress code" %}</dt><dd><span lang="es">{{ site.wedding.dress_code_es }}</span><span lang="en">{{ site.wedding.dress_code_en }}</span></dd>
     </dl>
-    <p lang="es">Después de la ceremonia nos vamos todos a celebrar. Habrá estacionamiento en el lugar. <!-- TODO: notas de transporte / valet --></p>
-    <p lang="en">After the ceremony we all head over to celebrate. Parking is available on site. <!-- TODO: transport / valet notes --></p>
+    <p lang="es">Después de la ceremonia nos vamos todos a celebrar.</p>
+    <p lang="en">After the ceremony we all head over to celebrate.</p>
     <p lang="es"><strong>Solo adultos.</strong> Habrá un área infantil con niñera para nuestros invitados que vienen de fuera.</p>
     <p lang="en"><strong>Adults only.</strong> There will be a kids' area with a nanny for our travelling guests.</p>
     <p><a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query={{ site.reception.maps_query | url_encode }}">{% include t.html es="Abrir en Google Maps" en="Open in Google Maps" %}</a></p>
@@ -60,5 +60,23 @@ permalink: /lugares/
   <div>
     <iframe class="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{{ site.reception.name }}"
       src="https://www.google.com/maps?q={{ site.reception.maps_query | url_encode }}&output=embed"></iframe>
+  </div>
+</section>
+
+<hr class="rule">
+
+<section class="cols">
+  <div>
+    <p class="label">{% include t.html es="De la iglesia a la fiesta" en="From the church to the party" %}</p>
+    <h2>{% include t.html es="Cómo moverse" en="Getting around" %}</h2>
+    <p lang="es">La iglesia y la ex hacienda están a unos <strong>15–20 minutos en coche</strong>. No es un trayecto para caminar. Te recomendamos pedir un <strong>Uber</strong> (o Didi) al salir de la ceremonia: en León funcionan muy bien, son económicos y así nadie tiene que manejar de regreso.</p>
+    <p lang="en">The church and the hacienda are about <strong>15–20 minutes apart by car</strong>. It is not a walkable route. We recommend calling an <strong>Uber</strong> (or Didi) after the ceremony: they work very well in León, they're inexpensive, and nobody has to drive back.</p>
+    <p lang="es">En general, para moverte por León durante el fin de semana, Uber es la opción más sencilla: del aeropuerto al hotel, del hotel a la iglesia y de vuelta.</p>
+    <p lang="en">In general, Uber is the easiest way to get around León over the weekend: airport to hotel, hotel to church, and back.</p>
+    <p><a class="btn ghost" target="_blank" rel="noopener" href="https://www.google.com/maps/dir/?api=1&origin={{ site.ceremony.maps_query | url_encode }}&destination={{ site.reception.maps_query | url_encode }}&travelmode=driving">{% include t.html es="Ver ruta en Google Maps" en="Open route in Google Maps" %}</a></p>
+  </div>
+  <div>
+    <iframe class="map" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="{% include t.html es="Ruta de la iglesia a la recepción" en="Route from the church to the reception" %}"
+      src="https://www.google.com/maps?saddr={{ site.ceremony.maps_query | url_encode }}&daddr={{ site.reception.maps_query | url_encode }}&dirflg=d&output=embed"></iframe>
   </div>
 </section>
