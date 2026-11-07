@@ -33,6 +33,8 @@ El aeropuerto más cercano es el **Aeropuerto Internacional de Guanajuato (BJX)*
 Hay taxis autorizados y renta de autos en el aeropuerto. Uber y Didi funcionan bien dentro de León.
 
 **Opción 2: por Ciudad de México.** Si te conviene más volar al Aeropuerto de la Ciudad de México (MEX), desde ahí puedes tomar un autobús **ETN** directo a León. Sale de la propia terminal del aeropuerto (Terminal 1 y Terminal 2, zona de autobuses foráneos), son asientos reclinables tipo primera clase y el viaje dura **unas 5 horas**. Boletos en [etn.com.mx](https://www.etn.com.mx) o en el mostrador del aeropuerto. También hay salidas frecuentes desde la Terminal Central del Norte (ETN y Primera Plus).
+
+**Opción 3: por Guadalajara.** El Aeropuerto de Guadalajara (GDL) también tiene autobuses **ETN** con mostrador en la misma terminal y salidas directas a León; el viaje dura **unas 3 h 30 min**. Si no coincide el horario, un taxi te lleva a la Central de Autobuses de Zapopan o a la Central Nueva, desde donde salen ETN y Primera Plus a León cada hora. Revisa horarios en [etn.com.mx](https://www.etn.com.mx) y [primeraplus.com.mx](https://www.primeraplus.com.mx).
 </div>
 <div lang="en" markdown="1">
 The nearest airport is **Guanajuato International Airport (BJX)**, in Silao. It has direct flights from Mexico City, Monterrey, Cancún, Tijuana and several US cities (Houston, Dallas, Los Angeles, Chicago, among others).
@@ -44,6 +46,8 @@ The nearest airport is **Guanajuato International Airport (BJX)**, in Silao. It 
 Authorised taxis and car rentals are available at the airport. Uber and Didi work well within León.
 
 **Option 2: via Mexico City.** If flying into Mexico City (MEX) works better for you, take an **ETN** bus straight to León from the airport itself (Terminal 1 and Terminal 2, intercity bus area). Seats are first-class recliners and the trip takes **about 5 hours**. Tickets at [etn.com.mx](https://www.etn.com.mx) or at the airport counter. There are also frequent departures from the Terminal Central del Norte bus station (ETN and Primera Plus).
+
+**Option 3: via Guadalajara.** Guadalajara airport (GDL) also has **ETN** buses with a counter inside the terminal and direct departures to León; the trip takes **about 3 h 30 min**. If the schedule doesn't line up, a taxi gets you to the Zapopan bus station or the Central Nueva, where ETN and Primera Plus leave for León every hour. Check times at [etn.com.mx](https://www.etn.com.mx) and [primeraplus.com.mx](https://www.primeraplus.com.mx).
 </div>
 </section>
 
