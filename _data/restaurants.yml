@@ -2,22 +2,16 @@
 # Fields: nombre, tipo_es / tipo_en (cuisine), nota_es / nota_en (optional), url (optional).
 
 - nombre: Panteón Taurino
-  tipo_es: Cocina mexicana tradicional
-  tipo_en: Traditional Mexican
-  nota_es: Un clásico de León lleno de memorabilia taurina; imperdible
-  nota_en: A León classic packed with bullfighting memorabilia; a must
+  tipo_es: Cantina tradicional
+  tipo_en: Traditional cantina
+  nota_es: Más que un restaurante, una experiencia de cantina tradicional, entre memorabilia taurina. Un clásico de León
+  nota_en: More a traditional cantina experience than a restaurant, surrounded by bullfighting memorabilia. A León classic
 
 - nombre: Frascati
   tipo_es: Italiana
   tipo_en: Italian
   nota_es: Institución leonesa, ideal para una cena larga
   nota_en: A local institution, ideal for a long dinner
-
-- nombre: Ma Come No
-  tipo_es: Italiana
-  tipo_en: Italian
-  nota_es: Pastas y pizzas, ambiente relajado
-  nota_en: Pasta and pizza, relaxed atmosphere
 
 - nombre: Gaucho Tradicional
   tipo_es: Parrilla argentina
