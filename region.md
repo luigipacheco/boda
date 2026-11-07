@@ -100,6 +100,12 @@ León is the largest city in the state and Mexico's leather and shoe capital. It
 
 <hr class="rule">
 
+<section class="photo-strip pair">
+  <figure><img src="{{ '/assets/img/region/guanajuato-vista.jpg' | relative_url }}" alt="Vista de Guanajuato desde el Pípila" loading="lazy"></figure>
+  <figure><img src="{{ '/assets/img/region/guanajuato-teatro.jpg' | relative_url }}" alt="Teatro Juárez, Guanajuato" loading="lazy"></figure>
+  <p class="small credit"><span lang="es">Fotos:</span><span lang="en">Photos:</span> <a href="https://commons.wikimedia.org/wiki/File:GUANAJUATO_PATRIMONIO_DE_LA_HUMANIDAD.jpg" target="_blank" rel="noopener">RODRIGO1906</a> (CC BY-SA 4.0), <a href="https://commons.wikimedia.org/wiki/File:Teatro_Ju%C3%A1rez_M-11-157-04-00.JPG" target="_blank" rel="noopener">Micros iesus</a> (CC BY-SA 3.0), Wikimedia Commons</p>
+</section>
+
 <section class="cols" markdown="1">
 <div markdown="1">
 <p class="label">{% include t.html es="A 50 min de León" en="50 min from León" %}</p>
@@ -131,6 +137,12 @@ The state capital and a UNESCO World Heritage city. A colonial mining town built
 </section>
 
 <hr class="rule">
+
+<section class="photo-strip pair">
+  <figure><img src="{{ '/assets/img/region/sma-calle.jpg' | relative_url }}" alt="Calle Aldama y la Parroquia, San Miguel de Allende" loading="lazy"></figure>
+  <figure><img src="{{ '/assets/img/region/sma-noche.jpg' | relative_url }}" alt="San Miguel de Allende de noche" loading="lazy"></figure>
+  <p class="small credit"><span lang="es">Fotos:</span><span lang="en">Photos:</span> <a href="https://commons.wikimedia.org/wiki/File:Calle_Aldama_-_San_Miguel_de_Allende,_Guanajuato_-_(Atardecer).jpg" target="_blank" rel="noopener">Juan Carlos Fonseca Mata</a>, <a href="https://commons.wikimedia.org/wiki/File:NightView_ParishSanMiguel2019.jpg" target="_blank" rel="noopener">Cvmontuy</a> (CC BY-SA 4.0), Wikimedia Commons</p>
+</section>
 
 <section class="cols" markdown="1">
 <div markdown="1">
