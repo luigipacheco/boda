@@ -27,3 +27,14 @@ bundle install
 bundle exec jekyll serve
 ```
 Then open <http://localhost:4000/boda/>.
+
+### Local build on this Mac (no Bundler)
+
+System Ruby is too old for Jekyll. Homebrew Ruby is installed; gems live in
+`~/.gem/ruby-brew`:
+
+```
+export PATH=/opt/homebrew/opt/ruby/bin:$HOME/.gem/ruby-brew/bin:$PATH
+export GEM_HOME=$HOME/.gem/ruby-brew JEKYLL_NO_BUNDLER_REQUIRE=1
+jekyll serve --baseurl /boda
+```

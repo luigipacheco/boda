@@ -45,7 +45,7 @@ Authorised taxis and car rentals are available at the airport. Uber and Didi wor
 
 <hr class="rule">
 
-<section class="cols">
+<section class="cols" markdown="1">
 <div markdown="1">
 <p class="label">{% include t.html es="Donde es la boda" en="Where the wedding is" %}</p>
 
@@ -77,7 +77,7 @@ León is the largest city in the state and Mexico's leather and shoe capital. It
 
 <hr class="rule">
 
-<section class="cols">
+<section class="cols" markdown="1">
 <div markdown="1">
 <p class="label">{% include t.html es="A 50 min de León" en="50 min from León" %}</p>
 
@@ -109,7 +109,7 @@ The state capital and a UNESCO World Heritage city. A colonial mining town built
 
 <hr class="rule">
 
-<section class="cols">
+<section class="cols" markdown="1">
 <div markdown="1">
 <p class="label">{% include t.html es="A 2 h de León" en="2 h from León" %}</p>
 
