@@ -92,8 +92,8 @@ León is the largest city in the state and Mexico's leather and shoe capital. It
 
 <dl class="facts places">
 {% for r in site.data.restaurants %}
-<dt><span lang="es">{{ r.tipo_es }}</span><span lang="en">{{ r.tipo_en }}</span></dt>
-<dd>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.nombre }}</a>{% else %}<a href="https://www.google.com/maps/search/?api=1&query={{ r.nombre | append: ' León Guanajuato' | url_encode }}" target="_blank" rel="noopener">{{ r.nombre }}</a>{% endif %}{% if r.nota_es %} · <span lang="es">{{ r.nota_es }}</span><span lang="en">{{ r.nota_en }}</span>{% endif %}</dd>
+<dt><span lang="es">{{ r.cuando_es }}</span><span lang="en">{{ r.cuando_en }}</span></dt>
+<dd>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.nombre }}</a>{% else %}<a href="https://www.google.com/maps/search/?api=1&query={{ r.nombre | append: ' León Guanajuato' | url_encode }}" target="_blank" rel="noopener">{{ r.nombre }}</a>{% endif %} · <span class="muted"><span lang="es">{{ r.tipo_es }}</span><span lang="en">{{ r.tipo_en }}</span></span></dd>
 {% endfor %}
 </dl>
 </section>
