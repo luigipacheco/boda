@@ -31,6 +31,8 @@ El aeropuerto más cercano es el **Aeropuerto Internacional de Guanajuato (BJX)*
 - **A San Miguel de Allende:** 1 h 30 min aprox.
 
 Hay taxis autorizados y renta de autos en el aeropuerto. Uber y Didi funcionan bien dentro de León.
+
+**Opción 2: por Ciudad de México.** Si te conviene más volar al Aeropuerto de la Ciudad de México (MEX), desde ahí puedes tomar un autobús **ETN** directo a León. Sale de la propia terminal del aeropuerto (Terminal 1 y Terminal 2, zona de autobuses foráneos), son asientos reclinables tipo primera clase y el viaje dura **unas 5 horas**. Boletos en [etn.com.mx](https://www.etn.com.mx) o en el mostrador del aeropuerto. También hay salidas frecuentes desde la Terminal Central del Norte (ETN y Primera Plus).
 </div>
 <div lang="en" markdown="1">
 The nearest airport is **Guanajuato International Airport (BJX)**, in Silao. It has direct flights from Mexico City, Monterrey, Cancún, Tijuana and several US cities (Houston, Dallas, Los Angeles, Chicago, among others).
@@ -40,6 +42,8 @@ The nearest airport is **Guanajuato International Airport (BJX)**, in Silao. It 
 - **To San Miguel de Allende:** about 1 h 30 min.
 
 Authorised taxis and car rentals are available at the airport. Uber and Didi work well within León.
+
+**Option 2: via Mexico City.** If flying into Mexico City (MEX) works better for you, take an **ETN** bus straight to León from the airport itself (Terminal 1 and Terminal 2, intercity bus area). Seats are first-class recliners and the trip takes **about 5 hours**. Tickets at [etn.com.mx](https://www.etn.com.mx) or at the airport counter. There are also frequent departures from the Terminal Central del Norte bus station (ETN and Primera Plus).
 </div>
 </section>
 
@@ -137,6 +141,26 @@ A colonial town, also a UNESCO World Heritage site, famous for its light, cobble
 <div>
 <iframe class="map" loading="lazy" title="San Miguel de Allende" src="https://www.google.com/maps?q=San%20Miguel%20de%20Allende%2C%20Gto.&z=13&output=embed"></iframe>
 </div>
+</section>
+
+<hr class="rule">
+
+<section markdown="1">
+<p class="label">{% include t.html es="Hoteles" en="Hotels" %}</p>
+
+## {% include t.html es="Dónde hospedarse" en="Where to stay" %}
+
+{% if site.data.hotels and site.data.hotels.size > 0 %}
+<dl class="facts hotels">
+{% for h in site.data.hotels %}
+<dt>{{ h.zona }}</dt>
+<dd><a href="{{ h.url }}" target="_blank" rel="noopener">{{ h.nombre }}</a>{% if h.nota_es %} · <span lang="es">{{ h.nota_es }}</span><span lang="en">{{ h.nota_en }}</span>{% endif %}</dd>
+{% endfor %}
+</dl>
+{% else %}
+<p lang="es">Pronto publicaremos aquí una lista de hoteles recomendados en León.</p>
+<p lang="en">We will post a list of recommended hotels in León here soon.</p>
+{% endif %}
 </section>
 
 <hr class="rule">

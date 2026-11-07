@@ -13,13 +13,12 @@ couple:
   short: Angela & Luis
 
 wedding:
-  # TODO: real date and times
-  date: "2026-06-06"                    # ISO, used by the countdown
-  date_es: "Sábado 6 de junio de 2026"
-  date_en: "Saturday, June 6, 2026"
+  date: "2027-07-24"                    # ISO, used by the countdown
+  date_es: "Sábado 24 de julio de 2027"
+  date_en: "Saturday, July 24, 2027"
   city: León, Guanajuato
-  rsvp_deadline_es: "1 de mayo de 2026"
-  rsvp_deadline_en: "May 1, 2026"
+  rsvp_deadline_es: "1 de junio de 2027"    # TODO: confirm
+  rsvp_deadline_en: "June 1, 2027"          # TODO: confirm
   dress_code_es: "Formal"
   dress_code_en: "Formal"
 

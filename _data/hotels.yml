@@ -1,0 +1,8 @@
+# Recommended hotels. One entry per hotel; the region page lists them in order.
+# Delete the leading "# " to activate an entry. Keep the two-space indent.
+#
+# - nombre: Hotel Ejemplo
+#   zona: Centro            # short tag shown on the left: Centro, Campestre, Poliforum...
+#   url: https://ejemplo.com
+#   nota_es: A 5 min de la iglesia, código de descuento BODA
+#   nota_en: 5 min from the church, discount code BODA
