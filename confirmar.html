@@ -7,10 +7,10 @@ scripts: [/assets/js/rsvp.js]
 <section class="hero" style="padding-bottom:0">
   <p class="label">{% include t.html es="Confirmación" en="RSVP" %}</p>
   <h1>{% include t.html es="¿Nos acompañas?" en="Will you join us?" %}</h1>
-  <p lang="es">Por favor respóndenos lo antes posible, de preferencia antes del <strong>{{ site.wedding.rsvp_deadline_es }}</strong>, para poder cerrar la lista. Busca tu nombre tal como aparece en tu invitación y dinos si vienes y cuántos.</p>
-  <p lang="es">Si tus planes cambian, no te preocupes: vuelve a esta página, busca tu nombre otra vez y actualiza tu respuesta. Siempre vale la última.</p>
-  <p lang="en">Please reply as soon as you can, ideally before <strong>{{ site.wedding.rsvp_deadline_en }}</strong>, so we can finalise the list. Find your name as it appears on your invitation and tell us if you're coming and how many.</p>
-  <p lang="en">If your plans change, no problem: come back to this page, look up your name again and update your answer. The latest one counts.</p>
+  <p lang="es">Por favor respóndenos lo antes posible, de preferencia antes del <strong>{{ site.wedding.rsvp_deadline_es }}</strong>, para poder cerrar la lista. Busca tu nombre tal como aparece en tu invitación y marca quiénes nos acompañan.</p>
+  <p lang="es">Si tus planes cambian, no te preocupes: vuelve a esta página, busca tu nombre otra vez y actualiza tu respuesta. Tomaremos en cuenta la más reciente.</p>
+  <p lang="en">Please reply as soon as you can, ideally before <strong>{{ site.wedding.rsvp_deadline_en }}</strong>, so we can finalise the list. Find your name as it appears on your invitation and tick who is joining us.</p>
+  <p lang="en">If your plans change, no problem: come back to this page, look up your name again and update your answer. We'll go by your most recent one.</p>
 </section>
 
 <hr class="rule">
@@ -26,7 +26,6 @@ scripts: [/assets/js/rsvp.js]
   <div id="selected" class="selected-card hidden">
     <p class="label">{% include t.html es="Invitación" en="Invitation" %}</p>
     <p class="name"></p>
-    <p class="small"><span class="seats"></span></p>
     <p class="small previous"></p>
 
     <fieldset class="field">
@@ -37,10 +36,10 @@ scripts: [/assets/js/rsvp.js]
       </div>
     </fieldset>
 
-    <div class="field" id="count-wrap">
-      <label for="count">{% include t.html es="¿Cuántos asistirán?" en="How many will attend?" %}</label>
-      <select id="count" name="confirmados"></select>
-    </div>
+    <fieldset class="field" id="names-wrap">
+      <legend>{% include t.html es="¿Quiénes asistirán?" en="Who will attend?" %}</legend>
+      <div class="names" id="names"></div>
+    </fieldset>
 
     <div class="field">
       <label for="note">{% include t.html es="Mensaje o alergias (opcional)" en="Message or allergies (optional)" %}</label>

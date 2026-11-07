@@ -25,8 +25,10 @@ overwrites their row, so they can change their mind any time.
 
 ## Adding guests
 
-- Fill the `invitacion` and `lugares` columns, one row per invitation
-  ("Familia Pérez López", 4). Leave `id` blank.
+- Fill `invitacion` (the name printed on the invitation) and `nombres`
+  (every person in it, separated by commas: "Ana Pérez, Luis López, Sofía López").
+  One row per invitation. Leave `id` blank. Guests tick who is coming, and the
+  names land in `asisten` with the count in `confirmados`.
 - Run **assignIds** from the Apps Script editor (or just run **setup** again).
   Rows without an id are not searchable.
 - Delete the two sample rows whenever you like.

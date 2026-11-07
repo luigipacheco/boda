@@ -257,6 +257,11 @@ fieldset { border: 0; padding: 0; margin: 0; }
 .choice input:focus-visible + label { outline: var(--line) solid var(--blue); outline-offset: 3px; }
 
 .selected-card { border-top: 1px solid var(--ink); padding-top: 1.5rem; margin-top: 2rem; }
+.names { border-top: 1px solid var(--rule-light); }
+.name-row { display: flex; align-items: center; gap: 0.9rem; border-bottom: 1px solid var(--rule-light); }
+.name-row input { width: 1.15rem; height: 1.15rem; margin: 0; accent-color: var(--blue); flex: none; }
+.name-row label { font-family: var(--serif); font-size: 1.35rem; text-transform: none; letter-spacing: 0; color: var(--ink); margin: 0; padding: 0.7rem 0; flex: 1; cursor: pointer; }
+.name-row input:checked + label { color: var(--blue); }
 .selected-card .name { font-family: var(--serif); font-size: 2.4rem; line-height: 1; margin-bottom: 0.5rem; }
 .status { margin-top: 1.5rem; padding: 1rem 0; border-top: 1px solid var(--rule); font-family: var(--mono); font-size: 0.85rem; }
 .status.ok { color: var(--blue); }

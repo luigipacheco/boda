@@ -2,22 +2,24 @@
  * RSVP backend for the wedding site — Google Apps Script bound to a Sheet.
  *
  * Sheet "Invitados" columns (row 1 = headers, created by setup()):
- *   id | invitacion | lugares | asistencia | confirmados | nota | actualizado
+ *   id | invitacion | nombres | asistencia | asisten | confirmados | nota | actualizado
  *
  *   id          short code, generated automatically (leave blank, run assignIds)
  *   invitacion  name as printed on the invitation, e.g. "Familia Pacheco Alcalá"
- *   lugares     seats reserved for that invitation (number)
- *   asistencia  "" | "si" | "no"   (written by the site)
- *   confirmados number attending   (written by the site)
- *   nota        guest message      (written by the site)
- *   actualizado last update time   (written by the site)
+ *   nombres     people in that invitation, separated by commas:
+ *               "Luis Pacheco, Angela Pérez, Sofía Pacheco"
+ *   asistencia  "" | "si" | "no"            (written by the site)
+ *   asisten     names that confirmed, comma-separated (written by the site)
+ *   confirmados number attending            (written by the site)
+ *   nota        guest message               (written by the site)
+ *   actualizado last update time            (written by the site)
  *
- * GET  ?q=text      -> { matches: [{id, invitacion, lugares, asistencia, confirmados, nota}] }
- * POST {id, asistencia, confirmados, nota} -> { ok: true, ... }
+ * GET  ?q=text  -> { matches: [{id, invitacion, nombres:[...], asistencia, asisten:[...], nota}] }
+ * POST {id, asistencia, asisten:[...], nota} -> { ok: true, ... }
  */
 
 var SHEET_NAME = 'Invitados';
-var HEADERS = ['id', 'invitacion', 'lugares', 'asistencia', 'confirmados', 'nota', 'actualizado'];
+var HEADERS = ['id', 'invitacion', 'nombres', 'asistencia', 'asisten', 'confirmados', 'nota', 'actualizado'];
 var MAX_MATCHES = 8;
 
 function doGet(e) {
@@ -30,8 +32,8 @@ function doGet(e) {
     var n = norm_(r.invitacion);
     return terms.every(function (t) { return n.indexOf(t) !== -1; });
   }).slice(0, MAX_MATCHES).map(function (r) {
-    return { id: r.id, invitacion: r.invitacion, lugares: Number(r.lugares) || 1,
-             asistencia: r.asistencia || '', confirmados: Number(r.confirmados) || 0, nota: r.nota || '' };
+    return { id: r.id, invitacion: r.invitacion, nombres: splitNames_(r.nombres),
+             asistencia: r.asistencia || '', asisten: splitNames_(r.asisten), nota: r.nota || '' };
   });
   return json_({ matches: matches });
 }
@@ -43,7 +45,7 @@ function doPost(e) {
     var body = JSON.parse(e.postData.contents || '{}');
     var id = String(body.id || '').trim();
     var asistencia = String(body.asistencia || '').toLowerCase();
-    var confirmados = parseInt(body.confirmados, 10);
+    var asisten = Array.isArray(body.asisten) ? body.asisten.map(function (n) { return String(n).trim(); }) : [];
     var nota = String(body.nota || '').slice(0, 300);
 
     if (!id) return json_({ ok: false, error: 'missing id' });
@@ -54,17 +56,18 @@ function doPost(e) {
     var col = colIndex_(data[0]);
     for (var i = 1; i < data.length; i++) {
       if (String(data[i][col.id]) === id) {
-        var lugares = Number(data[i][col.lugares]) || 1;
-        if (asistencia === 'no') confirmados = 0;
-        if (isNaN(confirmados) || confirmados < 0) confirmados = 0;
-        if (confirmados > lugares) confirmados = lugares;
-        if (asistencia === 'si' && confirmados === 0) confirmados = 1;
+        var nombres = splitNames_(data[i][col.nombres]);
+        // keep only names that belong to this invitation, in sheet order
+        var ok = nombres.filter(function (n) { return asisten.indexOf(n) !== -1; });
+        if (asistencia === 'no') ok = [];
+        if (asistencia === 'si' && ok.length === 0) return json_({ ok: false, error: 'no names' });
         var row = i + 1;
         sheet.getRange(row, col.asistencia + 1).setValue(asistencia);
-        sheet.getRange(row, col.confirmados + 1).setValue(confirmados);
+        sheet.getRange(row, col.asisten + 1).setValue(ok.join(', '));
+        sheet.getRange(row, col.confirmados + 1).setValue(ok.length);
         sheet.getRange(row, col.nota + 1).setValue(nota);
         sheet.getRange(row, col.actualizado + 1).setValue(new Date());
-        return json_({ ok: true, id: id, asistencia: asistencia, confirmados: confirmados });
+        return json_({ ok: true, id: id, asistencia: asistencia, asisten: ok, confirmados: ok.length });
       }
     }
     return json_({ ok: false, error: 'not found' });
@@ -86,8 +89,8 @@ function setup() {
   if (!sheet) {
     sheet = ss.insertSheet(SHEET_NAME);
     sheet.appendRow(HEADERS);
-    sheet.appendRow(['', 'Familia Ejemplo Pérez', 4, '', '', '', '']);
-    sheet.appendRow(['', 'Juan Prueba', 1, '', '', '', '']);
+    sheet.appendRow(['', 'Familia Ejemplo Pérez', 'Mamá Ejemplo, Papá Ejemplo, Hija Ejemplo', '', '', '', '', '']);
+    sheet.appendRow(['', 'Juan Prueba', 'Juan Prueba', '', '', '', '', '']);
     sheet.setFrozenRows(1);
     sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
   }
@@ -119,11 +122,11 @@ function addSummary_() {
   var s = ss.insertSheet('Resumen');
   s.getRange('A1:B6').setValues([
     ['Invitaciones', '=COUNTA(Invitados!B2:B)'],
-    ['Lugares totales', '=SUM(Invitados!C2:C)'],
+    ['Personas invitadas', '=SUMPRODUCT(LEN(Invitados!C2:C)-LEN(SUBSTITUTE(Invitados!C2:C,",",""))+(Invitados!C2:C<>""))'],
     ['Confirmaron sí', '=COUNTIF(Invitados!D2:D,"si")'],
     ['Confirmaron no', '=COUNTIF(Invitados!D2:D,"no")'],
     ['Sin responder', '=COUNTA(Invitados!B2:B)-COUNTIF(Invitados!D2:D,"si")-COUNTIF(Invitados!D2:D,"no")'],
-    ['Personas que asisten', '=SUM(Invitados!E2:E)']
+    ['Personas que asisten', '=SUM(Invitados!F2:F)']
   ]);
   s.getRange('A1:A6').setFontWeight('bold');
   s.autoResizeColumn(1);
@@ -158,6 +161,10 @@ function colIndex_(headerRow) {
     idx[h] = i;
   });
   return idx;
+}
+
+function splitNames_(v) {
+  return String(v || '').split(',').map(function (n) { return n.trim(); }).filter(Boolean);
 }
 
 function norm_(s) {
