@@ -1,0 +1,13 @@
+<header class="site-header">
+  <a class="brand" href="{{ '/' | relative_url }}">{{ site.couple.short }}</a>
+  <nav class="nav" aria-label="Principal">
+    <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %}>{% include t.html es="Inicio" en="Home" %}</a>
+    <a href="{{ '/lugares/' | relative_url }}" {% if page.url == '/lugares/' %}aria-current="page"{% endif %}>{% include t.html es="Lugares" en="Places" %}</a>
+    <a href="{{ '/region/' | relative_url }}" {% if page.url == '/region/' %}aria-current="page"{% endif %}>{% include t.html es="La región" en="The region" %}</a>
+    <a href="{{ '/galeria/' | relative_url }}" {% if page.url == '/galeria/' %}aria-current="page"{% endif %}>{% include t.html es="Galería" en="Gallery" %}</a>
+    <a href="{{ '/confirmar/' | relative_url }}" {% if page.url == '/confirmar/' %}aria-current="page"{% endif %}>{% include t.html es="Confirmar" en="RSVP" %}</a>
+  </nav>
+  <button class="lang-toggle" type="button" data-lang-toggle aria-label="Cambiar idioma / Switch language">
+    <span lang="es">EN</span><span lang="en">ES</span>
+  </button>
+</header>

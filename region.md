@@ -1,0 +1,159 @@
+---
+layout: default
+title: La región
+permalink: /region/
+---
+<section class="hero" style="padding-bottom:0" markdown="1">
+<p class="label">{% include t.html es="La región" en="The region" %}</p>
+
+# {% include t.html es="León, Guanajuato y San Miguel" en="León, Guanajuato and San Miguel" %}
+
+<div lang="es" markdown="1">
+Una guía corta para quienes vienen de fuera. Las tres ciudades están en el estado de Guanajuato, en el centro de México, y se conectan por buenas carreteras. Los tiempos son aproximados.
+</div>
+<div lang="en" markdown="1">
+A short guide for out-of-town guests. All three cities are in the state of Guanajuato, in central Mexico, linked by good highways. Travel times are approximate.
+</div>
+</section>
+
+<hr class="rule">
+
+<section markdown="1">
+<p class="label">{% include t.html es="Cómo llegar" en="Getting there" %}</p>
+
+## {% include t.html es="Aeropuerto del Bajío (BJX)" en="Bajío airport (BJX)" %}
+
+<div lang="es" markdown="1">
+El aeropuerto más cercano es el **Aeropuerto Internacional de Guanajuato (BJX)**, en Silao. Tiene vuelos directos desde Ciudad de México, Monterrey, Cancún, Tijuana y varias ciudades de Estados Unidos (Houston, Dallas, Los Ángeles, Chicago, entre otras).
+
+- **A León:** 25–30 min en coche o taxi autorizado.
+- **A Guanajuato capital:** 30–40 min.
+- **A San Miguel de Allende:** 1 h 30 min aprox.
+
+Hay taxis autorizados y renta de autos en el aeropuerto. Uber y Didi funcionan bien dentro de León.
+</div>
+<div lang="en" markdown="1">
+The nearest airport is **Guanajuato International Airport (BJX)**, in Silao. It has direct flights from Mexico City, Monterrey, Cancún, Tijuana and several US cities (Houston, Dallas, Los Angeles, Chicago, among others).
+
+- **To León:** 25–30 min by car or authorised taxi.
+- **To Guanajuato city:** 30–40 min.
+- **To San Miguel de Allende:** about 1 h 30 min.
+
+Authorised taxis and car rentals are available at the airport. Uber and Didi work well within León.
+</div>
+</section>
+
+<hr class="rule">
+
+<section class="cols">
+<div markdown="1">
+<p class="label">{% include t.html es="Donde es la boda" en="Where the wedding is" %}</p>
+
+## León
+
+<div lang="es" markdown="1">
+León es la ciudad más grande del estado y la capital del cuero y el calzado en México. Es una ciudad moderna y práctica: buenos hoteles, buena comida y todo cerca.
+
+- **Centro histórico:** el Arco de la Calzada, la Catedral, la Plaza Principal y el Templo Expiatorio, donde será la ceremonia.
+- **Zona Piel:** cientos de tiendas de zapatos, bolsas y chamarras de piel, a precios de fábrica.
+- **Forum Cultural Guanajuato:** museo de arte e historia, teatro y jardines.
+- **Comida:** guacamayas (bolillo con chicharrón y salsa), caldo de oso, cabrito, y una buena escena de restaurantes en la zona de Campestre y Centro.
+- **Dónde hospedarse:** la zona Centro para estar cerca de la iglesia, o la zona Campestre / Poliforum para hoteles más grandes.
+</div>
+<div lang="en" markdown="1">
+León is the largest city in the state and Mexico's leather and shoe capital. It is a modern, practical city: good hotels, good food, and everything close by.
+
+- **Historic centre:** the Arco de la Calzada, the Cathedral, the main square and the Templo Expiatorio, where the ceremony takes place.
+- **Zona Piel:** hundreds of shops selling leather shoes, bags and jackets at factory prices.
+- **Forum Cultural Guanajuato:** art and history museum, theatre and gardens.
+- **Food:** guacamayas (a crusty roll with pork rind and salsa), caldo de oso, cabrito, and a solid restaurant scene around Campestre and Centro.
+- **Where to stay:** the Centro area to be near the church, or Campestre / Poliforum for larger hotels.
+</div>
+</div>
+<div>
+<iframe class="map" loading="lazy" title="León" src="https://www.google.com/maps?q=Le%C3%B3n%2C%20Guanajuato&z=11&output=embed"></iframe>
+</div>
+</section>
+
+<hr class="rule">
+
+<section class="cols">
+<div markdown="1">
+<p class="label">{% include t.html es="A 50 min de León" en="50 min from León" %}</p>
+
+## Guanajuato
+
+<div lang="es" markdown="1">
+La capital del estado, Patrimonio de la Humanidad. Una ciudad colonial minera construida en un cañón: callejones, casas de colores, túneles bajo la ciudad y plazas pequeñas por todos lados. Vale la pena al menos un día completo.
+
+- **Imperdibles:** Teatro Juárez, la Basílica, la Universidad, el Callejón del Beso, el Mercado Hidalgo y el mirador del Pípila (sube en funicular).
+- **La Alhóndiga de Granaditas:** museo en el edificio clave de la Independencia.
+- **Museo de las Momias:** curioso y famoso; no es para todos.
+- **Callejoneada:** recorrido nocturno con estudiantinas por los callejones. Turístico pero divertido.
+- **Consejo:** el centro es peatonal y con cuestas; usa zapato cómodo y deja el coche en un estacionamiento.
+</div>
+<div lang="en" markdown="1">
+The state capital and a UNESCO World Heritage city. A colonial mining town built inside a canyon: alleyways, coloured houses, tunnels under the city and small plazas everywhere. Worth at least a full day.
+
+- **Must-sees:** Teatro Juárez, the Basilica, the University, the Callejón del Beso, Mercado Hidalgo and the Pípila lookout (take the funicular).
+- **Alhóndiga de Granaditas:** museum in the key building of Mexico's Independence war.
+- **Mummy Museum:** odd and famous; not for everyone.
+- **Callejoneada:** a night walk through the alleys with student musicians. Touristy but fun.
+- **Tip:** the centre is pedestrian and hilly; wear comfortable shoes and leave the car in a parking garage.
+</div>
+</div>
+<div>
+<iframe class="map" loading="lazy" title="Guanajuato" src="https://www.google.com/maps?q=Guanajuato%2C%20Gto.&z=13&output=embed"></iframe>
+</div>
+</section>
+
+<hr class="rule">
+
+<section class="cols">
+<div markdown="1">
+<p class="label">{% include t.html es="A 2 h de León" en="2 h from León" %}</p>
+
+## San Miguel de Allende
+
+<div lang="es" markdown="1">
+Pueblo colonial, también Patrimonio de la Humanidad, famoso por su luz, sus calles empedradas y una escena de arte, diseño y restaurantes muy fuerte. Es el destino ideal si quieres quedarte unos días antes o después de la boda.
+
+- **El Jardín y la Parroquia de San Miguel Arcángel:** la postal de la ciudad, sobre todo al atardecer.
+- **Fábrica La Aurora:** antigua fábrica textil convertida en galerías y talleres.
+- **Mercado de Artesanías y el Mercado Ignacio Ramírez.**
+- **Rooftops:** casi todos los hoteles del centro tienen terraza con vista.
+- **Cerca:** el Santuario de Atotonilco (15 min) y las termas y viñedos de la zona.
+</div>
+<div lang="en" markdown="1">
+A colonial town, also a UNESCO World Heritage site, famous for its light, cobbled streets and a strong art, design and restaurant scene. The ideal place to spend a few days before or after the wedding.
+
+- **El Jardín and the Parroquia de San Miguel Arcángel:** the city's postcard, especially at sunset.
+- **Fábrica La Aurora:** an old textile mill turned into galleries and studios.
+- **Mercado de Artesanías and Mercado Ignacio Ramírez.**
+- **Rooftops:** almost every hotel in the centre has a terrace with a view.
+- **Nearby:** the Sanctuary of Atotonilco (15 min), plus hot springs and vineyards in the area.
+</div>
+</div>
+<div>
+<iframe class="map" loading="lazy" title="San Miguel de Allende" src="https://www.google.com/maps?q=San%20Miguel%20de%20Allende%2C%20Gto.&z=13&output=embed"></iframe>
+</div>
+</section>
+
+<hr class="rule">
+
+<section markdown="1">
+<p class="label">{% include t.html es="Datos útiles" en="Useful facts" %}</p>
+
+<div lang="es" markdown="1">
+- **Clima:** seco y templado. Días cálidos y noches frescas; lleva algo para abrigarte en la noche.
+- **Altura:** entre 1,800 y 2,000 m sobre el nivel del mar. Toma agua y tómalo con calma el primer día.
+- **Moneda:** peso mexicano (MXN). Se acepta tarjeta casi en todos lados; ten efectivo para mercados y taxis.
+- **Idioma:** español. En San Miguel el inglés es común; en León y Guanajuato, menos.
+</div>
+<div lang="en" markdown="1">
+- **Weather:** dry and mild. Warm days and cool nights; bring a layer for the evening.
+- **Altitude:** 1,800–2,000 m (6,000–6,500 ft) above sea level. Drink water and take it easy the first day.
+- **Currency:** Mexican peso (MXN). Cards are accepted almost everywhere; keep some cash for markets and taxis.
+- **Language:** Spanish. English is common in San Miguel, less so in León and Guanajuato.
+</div>
+</section>

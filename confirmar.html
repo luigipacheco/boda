@@ -1,0 +1,60 @@
+---
+layout: default
+title: Confirmar
+permalink: /confirmar/
+scripts: [/assets/js/rsvp.js]
+---
+<section class="hero" style="padding-bottom:0">
+  <p class="label">{% include t.html es="Confirmación" en="RSVP" %}</p>
+  <h1>{% include t.html es="¿Nos acompañas?" en="Will you join us?" %}</h1>
+  <p lang="es">Busca tu nombre tal como aparece en tu invitación, dinos si vienes y cuántos. Puedes volver y cambiar tu respuesta cuando quieras, antes del <strong>{{ site.wedding.rsvp_deadline_es }}</strong>.</p>
+  <p lang="en">Find your name as it appears on your invitation, tell us if you're coming and how many. You can come back and change your answer any time before <strong>{{ site.wedding.rsvp_deadline_en }}</strong>.</p>
+</section>
+
+<hr class="rule">
+
+<form id="rsvp" class="rsvp" data-endpoint="{{ site.rsvp_endpoint }}" autocomplete="off" novalidate>
+  <div class="field">
+    <label for="q">{% include t.html es="Tu nombre o familia" en="Your name or family" %}</label>
+    <input type="search" id="q" name="q" placeholder="" inputmode="text" autocapitalize="words">
+    <p id="hint" class="small" style="margin-top:0.5rem"></p>
+    <ul id="matches" class="matches"></ul>
+  </div>
+
+  <div id="selected" class="selected-card hidden">
+    <p class="label">{% include t.html es="Invitación" en="Invitation" %}</p>
+    <p class="name"></p>
+    <p class="small"><span class="seats"></span></p>
+    <p class="small previous"></p>
+
+    <fieldset class="field">
+      <legend>{% include t.html es="Asistencia" en="Attendance" %}</legend>
+      <div class="choice">
+        <input type="radio" name="asistencia" id="a-si" value="si"><label for="a-si">{% include t.html es="Sí, ahí estaremos" en="Yes, we'll be there" %}</label>
+        <input type="radio" name="asistencia" id="a-no" value="no"><label for="a-no">{% include t.html es="No podremos ir" en="We can't make it" %}</label>
+      </div>
+    </fieldset>
+
+    <div class="field" id="count-wrap">
+      <label for="count">{% include t.html es="¿Cuántos asistirán?" en="How many will attend?" %}</label>
+      <select id="count" name="confirmados"></select>
+    </div>
+
+    <div class="field">
+      <label for="note">{% include t.html es="Mensaje o alergias (opcional)" en="Message or allergies (optional)" %}</label>
+      <textarea id="note" name="nota" maxlength="300"></textarea>
+    </div>
+
+    <button class="btn primary" id="submit" type="submit">{% include t.html es="Guardar respuesta" en="Save answer" %}</button>
+  </div>
+
+  <p id="status" class="status hidden" role="status" aria-live="polite"></p>
+</form>
+
+<hr class="rule">
+
+<section class="rsvp" style="padding-top:0">
+  <p class="label">{% include t.html es="¿No encuentras tu nombre?" en="Can't find your name?" %}</p>
+  <p lang="es">Escríbenos a <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>{% if site.contact_whatsapp != "" %} o por <a href="https://wa.me/{{ site.contact_whatsapp }}">WhatsApp</a>{% endif %} y lo arreglamos.</p>
+  <p lang="en">Write to us at <a href="mailto:{{ site.contact_email }}">{{ site.contact_email }}</a>{% if site.contact_whatsapp != "" %} or on <a href="https://wa.me/{{ site.contact_whatsapp }}">WhatsApp</a>{% endif %} and we'll sort it out.</p>
+</section>

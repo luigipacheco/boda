@@ -1,0 +1,16 @@
+---
+layout: default
+title: Galería
+permalink: /galeria/
+---
+<section class="hero" style="padding-bottom:0">
+  <p class="label">{% include t.html es="Galería" en="Gallery" %}</p>
+  <h1>{% include t.html es="Nosotros" en="Us" %}</h1>
+</section>
+<hr class="rule">
+{%- assign photos = site.static_files | where_exp: "f", "f.path contains '/assets/img/gallery/'" | sort: "path" -%}
+<section class="gallery">
+  {%- for p in photos %}
+  <figure><img src="{{ p.path | relative_url }}" alt="" loading="lazy"></figure>
+  {%- endfor %}
+</section>

@@ -1,0 +1,60 @@
+---
+layout: default
+permalink: /
+class: home
+scripts: [/assets/js/countdown.js]
+---
+<section class="hero">
+  <p class="label">{% include t.html es="Nos casamos" en="We're getting married" %}</p>
+  <h1 class="display">{{ site.couple.bride }}<br><em>&amp;</em> {{ site.couple.groom }}</h1>
+  <p class="lede">
+    <span lang="es">{{ site.wedding.date_es }} · {{ site.wedding.city }}</span>
+    <span lang="en">{{ site.wedding.date_en }} · {{ site.wedding.city }}</span>
+  </p>
+  <div class="countdown" data-countdown data-date="{{ site.wedding.date }}">
+    <div><b data-days>–</b><span>{% include t.html es="días" en="days" %}</span></div>
+    <div><b data-hours>–</b><span>{% include t.html es="horas" en="hours" %}</span></div>
+  </div>
+  <p>
+    <a class="btn primary" href="{{ '/confirmar/' | relative_url }}">{% include t.html es="Confirmar asistencia" en="RSVP" %}</a>
+  </p>
+</section>
+
+<hr class="rule">
+
+<section class="cols">
+  <div>
+    <p class="label">{% include t.html es="Ceremonia" en="Ceremony" %}</p>
+    <h2>{{ site.ceremony.name }}</h2>
+    <p>{{ site.ceremony.time }} h · {{ site.ceremony.address }}</p>
+  </div>
+  <div>
+    <p class="label">{% include t.html es="Recepción" en="Reception" %}</p>
+    <h2>{{ site.reception.name }}</h2>
+    <p>{{ site.reception.time }} h · {{ site.reception.address }}</p>
+  </div>
+</section>
+<p style="margin-top:1.5rem"><a href="{{ '/lugares/' | relative_url }}">{% include t.html es="Cómo llegar y mapas →" en="Directions and maps →" %}</a></p>
+
+<hr class="rule">
+
+<section>
+  <img src="{{ '/assets/img/home.jpg' | relative_url }}" alt="{{ site.couple.bride }} y {{ site.couple.groom }}" loading="lazy" width="1600" height="900">
+</section>
+
+<hr class="rule">
+
+<section class="cols">
+  <div>
+    <p class="label">{% include t.html es="Confirmación" en="RSVP" %}</p>
+    <p lang="es">Por favor confírmanos antes del <strong>{{ site.wedding.rsvp_deadline_es }}</strong>. Si tus planes cambian, puedes volver y actualizar tu respuesta.</p>
+    <p lang="en">Please let us know by <strong>{{ site.wedding.rsvp_deadline_en }}</strong>. If plans change, you can come back and update your answer.</p>
+    <p><a href="{{ '/confirmar/' | relative_url }}">{% include t.html es="Confirmar →" en="RSVP →" %}</a></p>
+  </div>
+  <div>
+    <p class="label">{% include t.html es="Vestimenta" en="Dress code" %}</p>
+    <p><span lang="es">{{ site.wedding.dress_code_es }}</span><span lang="en">{{ site.wedding.dress_code_en }}</span></p>
+    <p class="label" style="margin-top:1.5rem">{% include t.html es="¿Vienes de fuera?" en="Coming from out of town?" %}</p>
+    <p><a href="{{ '/region/' | relative_url }}">{% include t.html es="Guía de León, Guanajuato y San Miguel →" en="Guide to León, Guanajuato and San Miguel →" %}</a></p>
+  </div>
+</section>
