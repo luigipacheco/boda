@@ -29,10 +29,10 @@ ceremony:
   maps_query: "Templo Expiatorio del Sagrado Corazón de Jesús, León, Guanajuato"
 
 reception:
-  name: Cruz de Cantera
+  name: Ex Hacienda Cruz de Cantera
   time: "20:30"
-  address: "León, Guanajuato"            # TODO: full address
-  maps_query: "Cruz de Cantera, León, Guanajuato"
+  address: "Malecón del Río de los Gómez 760, La Mora, León, Gto."   # TODO: verify with the venue
+  maps_query: "Ex Hacienda Cruz de Cantera, León, Guanajuato"
 
 # RSVP backend: paste the Apps Script web-app URL here (see tools/apps-script/README.md).
 # Leave empty while testing; the form shows a "coming soon" notice.
