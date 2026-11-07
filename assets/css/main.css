@@ -5,14 +5,15 @@
    until the final palette arrives: swap --blue / --earth / --sand.
    ========================================================================== */
 :root {
-  --paper: #f4efe6;
-  --ink: #141311;
-  --muted: #6e685d;
-  --rule-light: #d6cdbd;
+  --paper: #fbf7ee;       /* ivory */
+  --ink: #1b1e24;
+  --muted: #6b6f78;
+  --rule-light: #e2dccf;
 
-  --blue: #1f3350;      /* dark blue accent */
-  --earth: #9a6b4a;     /* clay / terracotta */
-  --sand: #c9b48a;      /* warm sand */
+  --blue: #0072bb;        /* French blue: links, buttons, selections */
+  --blue-deep: #1c4d85;   /* darker French blue for small type on ivory */
+  --earth: var(--blue-deep);   /* labels; kept as a token for easy swaps */
+  --sand: #bcd3ea;        /* pale blue: link underlines */
 
   --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
   --sans: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
@@ -20,7 +21,7 @@
 
   --line: 1px;          /* the structural rule weight */
   --line-heavy: 2px;
-  --rule: #9a9284;      /* warm grey for structural rules */
+  --rule: #9aa0a8;      /* cool grey for structural rules */
   --measure: 40rem;
   --gap: 1.5rem;
 }
