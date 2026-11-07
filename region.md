@@ -65,7 +65,7 @@ León es la ciudad más grande del estado y la capital del cuero y el calzado en
 - **Centro histórico:** el Arco de la Calzada, la Catedral, la Plaza Principal y el Templo Expiatorio, donde será la ceremonia.
 - **Zona Piel y Plaza del Zapato:** cientos de tiendas de zapatos, bolsas y chamarras de piel a precios de fábrica. Plaza del Zapato concentra muchas marcas bajo un mismo techo.
 - **Forum Cultural Guanajuato:** museo de arte e historia, teatro y jardines.
-- **Comida:** guacamayas (bolillo con chicharrón y salsa), caldo de oso, cabrito, y una buena escena de restaurantes. Abajo dejamos nuestros favoritos.
+- **Comida:** guacamayas (bolillo con chicharrón y salsa), caldo de oso, cabrito, y una buena escena de restaurantes. Abajo hay una lista de lugares para comer.
 - **Dónde hospedarse:** te recomendamos la zona Poliforum o la zona norte, junto a Plaza Mayor. Abajo dejamos nuestros hoteles sugeridos.
 </div>
 <div lang="en" markdown="1">
@@ -74,7 +74,7 @@ León is the largest city in the state and Mexico's leather and shoe capital. It
 - **Historic centre:** the Arco de la Calzada, the Cathedral, the main square and the Templo Expiatorio, where the ceremony takes place.
 - **Zona Piel and Plaza del Zapato:** hundreds of shops selling leather shoes, bags and jackets at factory prices. Plaza del Zapato gathers many brands under one roof.
 - **Forum Cultural Guanajuato:** art and history museum, theatre and gardens.
-- **Food:** guacamayas (a crusty roll with pork rind and salsa), caldo de oso, cabrito, and a solid restaurant scene. Our favourites are listed below.
+- **Food:** guacamayas (a crusty roll with pork rind and salsa), caldo de oso, cabrito, and a solid restaurant scene. A list of places to eat is below.
 - **Where to stay:** we recommend the Poliforum area or the north side by Plaza Mayor. Our suggested hotels are listed below.
 </div>
 </div>
