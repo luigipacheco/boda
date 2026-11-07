@@ -154,6 +154,13 @@ A colonial town, also a UNESCO World Heritage site, famous for its light, cobble
 
 ## {% include t.html es="Dónde hospedarse" en="Where to stay" %}
 
+<div lang="es" markdown="1">
+Te sugerimos dos zonas. **Poliforum**, junto al centro de convenciones, está a 10–15 min de la iglesia y del lugar de la recepción, con hoteles cómodos y buen acceso. La **zona norte**, junto al centro comercial Plaza Mayor, es la más nueva de la ciudad, con restaurantes y tiendas a pie, a unos 15–20 min del centro.
+</div>
+<div lang="en" markdown="1">
+We suggest two areas. **Poliforum**, next to the convention centre, is 10–15 min from the church and the reception venue, with comfortable hotels and easy access. The **north area**, by the Plaza Mayor mall, is the newest part of the city, with restaurants and shops within walking distance, about 15–20 min from downtown.
+</div>
+
 {% if site.data.hotels and site.data.hotels.size > 0 %}
 <dl class="facts hotels">
 {% for h in site.data.hotels %}

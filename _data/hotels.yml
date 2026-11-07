@@ -1,8 +1,20 @@
-# Recommended hotels. One entry per hotel; the region page lists them in order.
-# Delete the leading "# " to activate an entry. Keep the two-space indent.
-#
-# - nombre: Hotel Ejemplo
-#   zona: Centro            # short tag shown on the left: Centro, Campestre, Poliforum...
-#   url: https://ejemplo.com
-#   nota_es: A 5 min de la iglesia, código de descuento BODA
-#   nota_en: 5 min from the church, discount code BODA
+# Recommended hotels, listed on the region page in this order.
+# Fields: nombre, zona (short tag), url, nota_es / nota_en (optional).
+
+- nombre: Hotel Real de Minas León
+  zona: Poliforum
+  url: https://www.realdeminas.com/
+  nota_es: Clásico de León, frente al Poliforum
+  nota_en: A León classic, across from the Poliforum
+
+- nombre: Courtyard by Marriott León at the Poliforum
+  zona: Poliforum
+  url: https://www.marriott.com/en-us/hotels/bjxcy-courtyard-leon-at-the-poliforum/
+  nota_es: Junto al centro de convenciones
+  nota_en: Attached to the convention centre
+
+- nombre: Crowne Plaza León
+  zona: Norte
+  url: https://www.ihg.com/crowneplaza/hotels/us/en/leon/bjxcp/hoteldetail
+  nota_es: A 5 min de Plaza Mayor
+  nota_en: 5 min from Plaza Mayor mall
