@@ -63,24 +63,39 @@ Authorised taxis and car rentals are available at the airport. Uber and Didi wor
 León es la ciudad más grande del estado y la capital del cuero y el calzado en México. Es una ciudad moderna y práctica: buenos hoteles, buena comida y todo cerca.
 
 - **Centro histórico:** el Arco de la Calzada, la Catedral, la Plaza Principal y el Templo Expiatorio, donde será la ceremonia.
-- **Zona Piel:** cientos de tiendas de zapatos, bolsas y chamarras de piel, a precios de fábrica.
+- **Zona Piel y Plaza del Zapato:** cientos de tiendas de zapatos, bolsas y chamarras de piel a precios de fábrica. Plaza del Zapato concentra muchas marcas bajo un mismo techo.
 - **Forum Cultural Guanajuato:** museo de arte e historia, teatro y jardines.
-- **Comida:** guacamayas (bolillo con chicharrón y salsa), caldo de oso, cabrito, y una buena escena de restaurantes en la zona de Campestre y Centro.
+- **Comida:** guacamayas (bolillo con chicharrón y salsa), caldo de oso, cabrito, y una buena escena de restaurantes. Abajo dejamos nuestros favoritos.
 - **Dónde hospedarse:** la zona Centro para estar cerca de la iglesia, o la zona Campestre / Poliforum para hoteles más grandes.
 </div>
 <div lang="en" markdown="1">
 León is the largest city in the state and Mexico's leather and shoe capital. It is a modern, practical city: good hotels, good food, and everything close by.
 
 - **Historic centre:** the Arco de la Calzada, the Cathedral, the main square and the Templo Expiatorio, where the ceremony takes place.
-- **Zona Piel:** hundreds of shops selling leather shoes, bags and jackets at factory prices.
+- **Zona Piel and Plaza del Zapato:** hundreds of shops selling leather shoes, bags and jackets at factory prices. Plaza del Zapato gathers many brands under one roof.
 - **Forum Cultural Guanajuato:** art and history museum, theatre and gardens.
-- **Food:** guacamayas (a crusty roll with pork rind and salsa), caldo de oso, cabrito, and a solid restaurant scene around Campestre and Centro.
+- **Food:** guacamayas (a crusty roll with pork rind and salsa), caldo de oso, cabrito, and a solid restaurant scene. Our favourites are listed below.
 - **Where to stay:** the Centro area to be near the church, or Campestre / Poliforum for larger hotels.
 </div>
 </div>
 <div>
 <iframe class="map" loading="lazy" title="León" src="https://www.google.com/maps?q=Le%C3%B3n%2C%20Guanajuato&z=11&output=embed"></iframe>
 </div>
+</section>
+
+<hr class="rule">
+
+<section markdown="1">
+<p class="label">{% include t.html es="Dónde comer en León" en="Where to eat in León" %}</p>
+
+## {% include t.html es="Nuestros restaurantes" en="Our restaurants" %}
+
+<dl class="facts places">
+{% for r in site.data.restaurants %}
+<dt><span lang="es">{{ r.tipo_es }}</span><span lang="en">{{ r.tipo_en }}</span></dt>
+<dd>{% if r.url %}<a href="{{ r.url }}" target="_blank" rel="noopener">{{ r.nombre }}</a>{% else %}<a href="https://www.google.com/maps/search/?api=1&query={{ r.nombre | append: ' León Guanajuato' | url_encode }}" target="_blank" rel="noopener">{{ r.nombre }}</a>{% endif %}{% if r.nota_es %} · <span lang="es">{{ r.nota_es }}</span><span lang="en">{{ r.nota_en }}</span>{% endif %}</dd>
+{% endfor %}
+</dl>
 </section>
 
 <hr class="rule">
