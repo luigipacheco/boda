@@ -233,6 +233,7 @@ section { padding: 2.5rem 0 3rem; }
   appearance: none;
 }
 .field textarea { font-family: var(--sans); font-size: 1rem; min-height: 5rem; resize: vertical; }
+#code { font-family: var(--mono); font-size: 1.3rem; letter-spacing: 0.2em; text-transform: uppercase; max-width: 16rem; }
 .field select { font-family: var(--mono); font-size: 1rem; max-width: 8rem; }
 .field input:focus, .field textarea:focus, .field select:focus { outline: none; border-bottom-color: var(--blue); }
 fieldset { border: 0; padding: 0; margin: 0; }

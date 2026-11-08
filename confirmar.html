@@ -16,11 +16,19 @@ scripts: [/assets/js/rsvp.js]
 <hr class="rule">
 
 <form id="rsvp" class="rsvp" data-endpoint="{{ site.rsvp_endpoint }}" autocomplete="off" novalidate>
-  <div class="field">
+  <div class="field" id="code-wrap">
+    <label for="code">{% include t.html es="Código de tu invitación" en="Code from your invitation" %}</label>
+    <input type="text" id="code" name="k" autocapitalize="characters" autocomplete="off" spellcheck="false">
+    <p id="code-hint" class="small" style="margin-top:0.5rem"></p>
+    <p><button class="btn" id="code-go" type="button">{% include t.html es="Continuar" en="Continue" %}</button></p>
+  </div>
+
+  <div id="search-wrap" class="field hidden">
     <label for="q">{% include t.html es="Tu nombre o familia" en="Your name or family" %}</label>
     <input type="search" id="q" name="q" placeholder="" inputmode="text" autocapitalize="words">
     <p id="hint" class="small" style="margin-top:0.5rem"></p>
     <ul id="matches" class="matches"></ul>
+    <p class="small"><a href="#" id="code-change">{% include t.html es="Cambiar código" en="Change code" %}</a></p>
   </div>
 
   <div id="selected" class="selected-card hidden">

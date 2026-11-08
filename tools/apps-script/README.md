@@ -23,6 +23,21 @@ overwrites their row, so they can change their mind any time.
 5. Paste that URL in `_config.yml` → `rsvp_endpoint: "https://script.google.com/macros/s/…/exec"`.
    Commit and push. The form on `/confirmar/` goes live.
 
+## Access code (optional but recommended)
+
+Guests must type a code (printed on the invitation) before they can search or
+save. The code lives only in the script's settings, never in the website code.
+
+1. In the Apps Script editor click the gear icon (**Project Settings**).
+2. Under **Script Properties** click **Add script property**.
+3. Property: `ACCESS_CODE` · Value: the code, e.g. `LEON2027`. Save.
+
+Matching ignores case and accents. To change the code later, edit the property;
+no redeploy needed. To remove the gate, delete the property.
+
+You can also pre-fill the code in a link, e.g. for a QR on the invitation:
+`https://luigipacheco.github.io/boda/confirmar/?k=LEON2027`
+
 ## Adding guests
 
 - Fill `invitacion` (the name printed on the invitation) and `nombres`

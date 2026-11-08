@@ -14,8 +14,12 @@
  *   nota        guest message               (written by the site)
  *   actualizado last update time            (written by the site)
  *
- * GET  ?q=text  -> { matches: [{id, invitacion, nombres:[...], asistencia, asisten:[...], nota}] }
- * POST {id, asistencia, asisten:[...], nota} -> { ok: true, ... }
+ * GET  ?q=text&k=CODE  -> { matches: [{id, invitacion, nombres:[...], asistencia, asisten:[...], nota}] }
+ * POST {id, asistencia, asisten:[...], nota, k: CODE} -> { ok: true, ... }
+ *
+ * Access code: set a Script Property named ACCESS_CODE (Project Settings →
+ * Script Properties). Every request must carry it as "k". If the property is
+ * empty or missing, the check is skipped.
  */
 
 var SHEET_NAME = 'Invitados';
@@ -23,6 +27,7 @@ var HEADERS = ['id', 'invitacion', 'nombres', 'asistencia', 'asisten', 'confirma
 var MAX_MATCHES = 8;
 
 function doGet(e) {
+  if (!authorized_(e && e.parameter && e.parameter.k)) return json_({ matches: [], error: 'unauthorized' });
   var q = (e && e.parameter && e.parameter.q) ? String(e.parameter.q) : '';
   q = norm_(q);
   if (q.length < 3) return json_({ matches: [] });
@@ -43,6 +48,7 @@ function doPost(e) {
   lock.waitLock(10000);
   try {
     var body = JSON.parse(e.postData.contents || '{}');
+    if (!authorized_(body.k)) return json_({ ok: false, error: 'unauthorized' });
     var id = String(body.id || '').trim();
     var asistencia = String(body.asistencia || '').toLowerCase();
     var asisten = Array.isArray(body.asisten) ? body.asisten.map(function (n) { return String(n).trim(); }) : [];
@@ -161,6 +167,13 @@ function colIndex_(headerRow) {
     idx[h] = i;
   });
   return idx;
+}
+
+/** True when the request carries the access code (or no code is configured). */
+function authorized_(k) {
+  var code = PropertiesService.getScriptProperties().getProperty('ACCESS_CODE');
+  if (!code) return true;
+  return norm_(k || '') === norm_(code);
 }
 
 function splitNames_(v) {
