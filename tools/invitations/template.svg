@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Invitation template, 5 x 7 in (127 x 178 mm), portrait.
+  Edit freely in Inkscape. The script only touches:
+    {{FAMILIA}}  the family / invitation name
+    {{CODIGO}}   the RSVP code
+    the element with id="qr" (a square; it is replaced by the QR code,
+                              keep it square and move/resize it as you like)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" width="127mm" height="178mm" viewBox="0 0 127 178">
+  <defs>
+    <style>
+      .serif { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; }
+      .mono  { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; }
+      .ink   { fill: #1b1e24; }
+      .blue  { fill: #1f3350; }
+      .muted { fill: #6b6f78; }
+    </style>
+  </defs>
+
+  <!-- ivory card -->
+  <rect width="127" height="178" fill="#fbf7ee"/>
+
+  <!-- top rule + label -->
+  <line x1="14" y1="18" x2="113" y2="18" stroke="#9aa0a8" stroke-width="0.3"/>
+  <text x="14" y="26" class="mono blue" font-size="2.6" letter-spacing="0.5">NOS CASAMOS</text>
+
+  <!-- names -->
+  <text x="14" y="50" class="serif ink" font-size="15" font-weight="300">Angela Pérez</text>
+  <text x="14" y="62" class="serif ink" font-size="11" font-style="italic">&amp;</text>
+  <text x="14" y="76" class="serif ink" font-size="15" font-weight="300">Luis Pacheco</text>
+
+  <!-- date / places -->
+  <text x="14" y="90" class="mono ink" font-size="2.8" letter-spacing="0.3">SÁBADO 24 · JULIO · 2027 · LEÓN, GTO.</text>
+  <text x="14" y="100" class="serif ink" font-size="4.6">Ceremonia · Templo Expiatorio · 19:00 h</text>
+  <text x="14" y="107" class="serif ink" font-size="4.6">Recepción · Ex Hacienda Cruz de Cantera · 20:30 h</text>
+
+  <!-- personal line -->
+  <line x1="14" y1="118" x2="113" y2="118" stroke="#9aa0a8" stroke-width="0.3"/>
+  <text x="14" y="126" class="mono blue" font-size="2.6" letter-spacing="0.5">CON CARIÑO PARA</text>
+  <text x="14" y="136" class="serif ink" font-size="7" font-style="italic">{{FAMILIA}}</text>
+
+  <!-- RSVP block: QR + code -->
+  <rect id="qr" x="87" y="140" width="26" height="26" fill="none" stroke="#9aa0a8" stroke-width="0.2" stroke-dasharray="1 1"/>
+  <text x="14" y="150" class="mono blue" font-size="2.6" letter-spacing="0.5">CONFIRMA TU ASISTENCIA</text>
+  <text x="14" y="156" class="mono ink" font-size="3">luigipacheco.github.io/boda</text>
+  <text x="14" y="162" class="mono muted" font-size="2.6">CÓDIGO  {{CODIGO}}</text>
+
+  <!-- bottom rule -->
+  <line x1="14" y1="168" x2="113" y2="168" stroke="#9aa0a8" stroke-width="0.3"/>
+</svg>
