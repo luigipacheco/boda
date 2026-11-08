@@ -13,12 +13,6 @@
   tipo_es: Tortas de chilaquiles
   tipo_en: Tortas de chilaquiles
 
-- nombre: Panteón Taurino
-  cuando_es: Comida
-  cuando_en: Lunch
-  tipo_es: Cantina tradicional
-  tipo_en: Traditional cantina
-
 - nombre: La Ponderosa
   cuando_es: Comida
   cuando_en: Lunch
@@ -55,6 +49,12 @@
   tipo_es: Enchiladas
   tipo_en: Enchiladas
 
+- nombre: Panteón Taurino
+  cuando_es: Cena · noche
+  cuando_en: Dinner · late night
+  tipo_es: Cantina tradicional
+  tipo_en: Traditional cantina
+
 - nombre: Tacos Don Luis
   cuando_es: Noche
   cuando_en: Late night
@@ -66,3 +66,4 @@
   cuando_en: Late night
   tipo_es: Tacos
   tipo_en: Tacos
+
