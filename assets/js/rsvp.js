@@ -1,5 +1,6 @@
-// RSVP front end. Talks to the Apps Script web app described in
-// tools/apps-script/README.md. All strings are bilingual via T[lang].
+// RSVP front end. Each invitation has a code (the id column in the Sheet).
+// Guests type it, see their names, tick who is coming, and can come back to change it.
+// Backend: tools/apps-script/Code.gs. All strings are bilingual via T[lang].
 (function () {
   var form = document.getElementById('rsvp');
   if (!form) return;
@@ -7,38 +8,32 @@
 
   var T = {
     es: {
-      typing: 'Escribe al menos 3 letras.',
-      searching: 'Buscando…',
-      none: 'No encontramos ese nombre. Prueba con el apellido, o escríbenos abajo.',
-      seats: function (n) { return n === 1 ? '1 persona' : n + ' personas'; },
-      pickOne: 'Marca al menos una persona.',
       codeNeeded: 'Escribe el código que viene en tu invitación.',
-      codeBad: 'Ese código no es correcto. Revísalo en tu invitación o escríbenos.',
-      checking: 'Verificando…',
+      codeBad: 'No encontramos ese código. Revísalo en tu invitación o escríbenos abajo.',
+      checking: 'Buscando…',
+      people: function (n) { return n === 1 ? '1 persona' : n + ' personas'; },
+      pickOne: 'Marca al menos una persona.',
       saving: 'Guardando…',
-      savedYes: '¡Gracias! Quedó confirmada tu asistencia. Puedes volver a esta página y cambiarlo cuando quieras.',
-      savedNo: 'Gracias por avisarnos. Si cambias de planes, vuelve aquí y actualízalo.',
-      error: 'Algo falló al guardar. Intenta de nuevo o escríbenos.',
+      savedYes: '¡Gracias! Quedó confirmada su asistencia. Pueden volver con su código y cambiarlo cuando quieran.',
+      savedNo: 'Gracias por avisarnos. Si cambian de planes, vuelvan aquí con su código y actualícenlo.',
+      error: 'Algo falló. Intenta de nuevo o escríbenos.',
       offline: 'El registro aún no está activo. Vuelve pronto.',
       previous: function (s, c) {
-        if (s === 'si') return 'Ya habías confirmado a ' + (c === 1 ? '1 persona' : c + ' personas') + '. Puedes cambiarlo abajo.';
-        if (s === 'no') return 'Habías indicado que no podrías asistir. Puedes cambiarlo abajo.';
+        if (s === 'si') return 'Ya habían confirmado a ' + (c === 1 ? '1 persona' : c + ' personas') + '. Pueden cambiarlo abajo.';
+        if (s === 'no') return 'Habían indicado que no podrían asistir. Pueden cambiarlo abajo.';
         return '';
       }
     },
     en: {
-      typing: 'Type at least 3 letters.',
-      searching: 'Searching…',
-      none: 'We could not find that name. Try a last name, or write to us below.',
-      seats: function (n) { return n === 1 ? '1 person' : n + ' people'; },
-      pickOne: 'Tick at least one person.',
       codeNeeded: 'Enter the code printed on your invitation.',
-      codeBad: 'That code is not right. Check your invitation or write to us.',
-      checking: 'Checking…',
+      codeBad: 'We could not find that code. Check your invitation or write to us below.',
+      checking: 'Looking it up…',
+      people: function (n) { return n === 1 ? '1 person' : n + ' people'; },
+      pickOne: 'Tick at least one person.',
       saving: 'Saving…',
-      savedYes: 'Thank you! Your attendance is confirmed. You can come back to this page and change it any time.',
-      savedNo: 'Thanks for letting us know. If plans change, come back here and update it.',
-      error: 'Something went wrong while saving. Try again or write to us.',
+      savedYes: 'Thank you! Your attendance is confirmed. You can come back with your code and change it any time.',
+      savedNo: 'Thanks for letting us know. If plans change, come back here with your code and update it.',
+      error: 'Something went wrong. Try again or write to us.',
       offline: 'RSVP is not open yet. Please check back soon.',
       previous: function (s, c) {
         if (s === 'si') return 'You had confirmed ' + (c === 1 ? '1 person' : c + ' people') + '. You can change it below.';
@@ -54,10 +49,6 @@
   var codeHint = form.querySelector('#code-hint');
   var codeGo = form.querySelector('#code-go');
   var codeChange = form.querySelector('#code-change');
-  var searchWrap = form.querySelector('#search-wrap');
-  var q = form.querySelector('#q');
-  var hint = form.querySelector('#hint');
-  var matches = form.querySelector('#matches');
   var card = form.querySelector('#selected');
   var nameEl = card.querySelector('.name');
   var prevEl = card.querySelector('.previous');
@@ -67,90 +58,57 @@
   var submit = form.querySelector('#submit');
   var status = form.querySelector('#status');
   var selected = null;
-  var timer = null;
 
   function show(el) { el.classList.remove('hidden'); }
   function hide(el) { el.classList.add('hidden'); }
+  function setStatus(msg, cls) { status.textContent = msg; status.className = 'status ' + (cls || ''); if (!msg) hide(status); else show(status); }
 
   if (!endpoint) {
-    hide(codeWrap); show(searchWrap);
-    q.disabled = true;
-    hint.textContent = t('offline');
+    codeInput.disabled = true; codeGo.disabled = true;
+    codeHint.textContent = t('offline');
     return;
   }
 
-  // --- access code --------------------------------------------------------
+  // --- code -----------------------------------------------------------------
   var code = '';
   try { code = localStorage.getItem('rsvp_code') || ''; } catch (e) {}
-  var km = location.search.match(/[?&]k=([^&]+)/);
-  if (km) code = decodeURIComponent(km[1].replace(/\+/g, ' '));
-  function setCode(c) {
+  var cm = location.search.match(/[?&](?:c|code|k)=([^&]+)/);
+  if (cm) code = decodeURIComponent(cm[1].replace(/\+/g, ' '));
+
+  function remember(c) {
     code = String(c || '').trim();
     try { if (code) localStorage.setItem('rsvp_code', code); else localStorage.removeItem('rsvp_code'); } catch (e) {}
   }
   function askCode(msg) {
-    hide(searchWrap); hide(card); show(codeWrap);
+    selected = null;
+    hide(card); show(codeWrap); setStatus('');
     codeInput.value = code; codeHint.textContent = msg || '';
     codeInput.focus();
   }
-  function enterCode() {
-    var c = codeInput.value.trim();
-    if (!c) { codeHint.textContent = t('codeNeeded'); return; }
+  function lookup(c) {
+    c = String(c || '').trim();
+    if (c.length < 3) { codeHint.textContent = t('codeNeeded'); return; }
     codeHint.textContent = t('checking'); codeGo.disabled = true;
-    fetch(endpoint + '?q=___&k=' + encodeURIComponent(c))
+    fetch(endpoint + '?code=' + encodeURIComponent(c), { method: 'GET' })
       .then(function (r) { return r.json(); })
       .then(function (data) {
         codeGo.disabled = false;
-        if (data.error === 'unauthorized') { codeHint.textContent = t('codeBad'); return; }
-        setCode(c); hide(codeWrap); show(searchWrap); q.focus();
+        if (!data.invitation) { codeHint.textContent = t('codeBad'); return; }
+        remember(c);
+        select(data.invitation);
       })
       .catch(function () { codeGo.disabled = false; codeHint.textContent = t('error'); });
   }
-  codeGo.addEventListener('click', enterCode);
-  codeInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); enterCode(); } });
-  codeChange.addEventListener('click', function (e) { e.preventDefault(); setCode(''); askCode(''); });
-  if (code) { codeInput.value = code; enterCode(); } else { askCode(''); }
-  function setStatus(msg, cls) { status.textContent = msg; status.className = 'status ' + (cls || ''); if (!msg) hide(status); else show(status); }
+  codeGo.addEventListener('click', function () { lookup(codeInput.value); });
+  codeInput.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); lookup(codeInput.value); } });
+  codeChange.addEventListener('click', function (e) { e.preventDefault(); remember(''); askCode(''); });
 
-  // --- search -----------------------------------------------------------
-  q.addEventListener('input', function () {
-    clearTimeout(timer);
-    var v = q.value.trim();
-    hide(card); selected = null; setStatus('');
-    if (v.length < 3) { matches.innerHTML = ''; hint.textContent = t('typing'); return; }
-    hint.textContent = t('searching');
-    timer = setTimeout(function () { search(v); }, 300);
-  });
-
-  function search(v) {
-    fetch(endpoint + '?q=' + encodeURIComponent(v) + '&k=' + encodeURIComponent(code), { method: 'GET' })
-      .then(function (r) { return r.json(); })
-      .then(function (data) {
-        matches.innerHTML = '';
-        if (data.error === 'unauthorized') { askCode(t('codeBad')); return; }
-        if (!data.matches || !data.matches.length) { hint.textContent = t('none'); return; }
-        hint.textContent = '';
-        data.matches.forEach(function (m) {
-          var li = document.createElement('li');
-          var b = document.createElement('button');
-          b.type = 'button';
-          b.innerHTML = '<span>' + esc(m.invitacion) + '</span><span class="seats">' + t('seats', (m.nombres || []).length) + '</span>';
-          b.addEventListener('click', function () { select(m); });
-          li.appendChild(b);
-          matches.appendChild(li);
-        });
-      })
-      .catch(function () { hint.textContent = t('error'); });
-  }
-
+  // --- invitation card ------------------------------------------------------
   function select(m) {
     selected = m;
-    matches.innerHTML = '';
-    q.value = m.invitacion;
-    hint.textContent = '';
+    hide(codeWrap); codeHint.textContent = '';
     nameEl.textContent = m.invitacion;
     prevEl.textContent = t('previous', m.asistencia, (m.asisten || []).length);
-    // one checkbox per person; pre-tick previous answer, or everyone if no answer yet
     namesEl.innerHTML = '';
     var tick = m.asistencia === 'si' ? (m.asisten || []) : (m.nombres || []);
     (m.nombres || []).forEach(function (n, i) {
@@ -161,21 +119,19 @@
       wrap.appendChild(cb); wrap.appendChild(lb); namesEl.appendChild(wrap);
     });
     note.value = m.nota || '';
-    var pre = form.querySelector('input[name="asistencia"][value="' + m.asistencia + '"]');
     form.querySelectorAll('input[name="asistencia"]').forEach(function (r) { r.checked = false; });
+    var pre = form.querySelector('input[name="asistencia"][value="' + m.asistencia + '"]');
     if (pre) pre.checked = true;
     toggleNames();
     show(card);
-    card.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
-
   function toggleNames() {
     var v = form.querySelector('input[name="asistencia"]:checked');
     if (v && v.value === 'si') show(namesWrap); else hide(namesWrap);
   }
   form.querySelectorAll('input[name="asistencia"]').forEach(function (r) { r.addEventListener('change', toggleNames); });
 
-  // --- submit -----------------------------------------------------------
+  // --- submit ---------------------------------------------------------------
   form.addEventListener('submit', function (e) {
     e.preventDefault();
     if (!selected) return;
@@ -187,8 +143,7 @@
       id: selected.id,
       asistencia: choice.value,
       asisten: choice.value === 'si' ? asisten : [],
-      nota: note.value.trim().slice(0, 300),
-      k: code
+      nota: note.value.trim().slice(0, 300)
     };
     submit.disabled = true;
     setStatus(t('saving'));
@@ -201,21 +156,19 @@
     })
       .then(function (r) { return r.json(); })
       .then(function (data) {
-        if (data.error === 'unauthorized') { setStatus(''); askCode(t('codeBad')); return; }
         if (!data.ok) throw new Error(data.error || 'error');
         setStatus(payload.asistencia === 'si' ? t('savedYes') : t('savedNo'), 'ok');
         selected.asistencia = payload.asistencia; selected.asisten = payload.asisten;
+        prevEl.textContent = t('previous', selected.asistencia, selected.asisten.length);
       })
       .catch(function () { setStatus(t('error'), 'err'); })
       .then(function () { submit.disabled = false; });
   });
 
-  function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]; }); }
-
   // Re-render dynamic strings when the language flips.
   document.addEventListener('langchange', function () {
-    if (q.value.trim().length < 3 && !selected) hint.textContent = t('typing');
-    if (selected) { prevEl.textContent = t('previous', selected.asistencia, (selected.asisten || []).length); }
+    if (selected) prevEl.textContent = t('previous', selected.asistencia, (selected.asisten || []).length);
   });
-  hint.textContent = t('typing');
+
+  if (code) { codeInput.value = code; lookup(code); } else { askCode(''); }
 })();
