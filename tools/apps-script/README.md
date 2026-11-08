@@ -23,6 +23,24 @@ overwrites their row, so they can change their mind any time.
 5. Paste that URL in `_config.yml` → `rsvp_endpoint: "https://script.google.com/macros/s/…/exec"`.
    Commit and push. The form on `/confirmar/` goes live.
 
+## Links and QR codes per invitation
+
+Reload the Sheet after pasting the script and a **Boda** menu appears next to
+Help. It has:
+
+1. **Asignar códigos a filas nuevas** — fills empty `id` cells (never changes existing ones).
+2. **Generar enlaces y QR** — adds two columns: `enlace` (the RSVP page with the
+   code pre-filled) and `qr` (a QR image of that link, rendered in the cell).
+   Re-run after adding guests.
+
+The `enlace` is what you paste into a WhatsApp message. The in-cell QR is good
+for a quick scan test; for printing, make clean files with `tools/qr/make_qr.py`
+(see `tools/qr/README.md`). Changing the site domain later: edit `SITE_URL` at the
+top of the script and re-run "Generar enlaces y QR".
+
+Menu functions run inside the Sheet and do **not** need a redeploy. Only changes
+to `doGet` / `doPost` do.
+
 ## Adding guests
 
 - Fill `invitacion` (the name printed on the invitation) and `nombres`

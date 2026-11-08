@@ -16,13 +16,16 @@
  *   nota        guest message               (written by the site)
  *   actualizado last update time            (written by the site)
  *
+ * Sheet menu "Boda" (appears when the Sheet opens): assign codes, build links + QR.
+ *
  * GET  ?code=XXXXXX -> { invitation: {id, invitacion, nombres:[...], asistencia, asisten:[...], nota} }
  *                      or { invitation: null }
  * GET  ?diag=1      -> { version, invitations }
  * POST {id, asistencia, asisten:[...], nota} -> { ok: true, ... }
  */
 
-var SCRIPT_VERSION = 4;   // bump when the script changes; visible at ?diag=1
+var SCRIPT_VERSION = 5;   // bump when the script changes; visible at ?diag=1
+var SITE_URL = 'https://luigipacheco.github.io/boda/confirmar/';   // RSVP page; change if the domain changes
 var SHEET_NAME = 'Invitados';
 var HEADERS = ['id', 'invitacion', 'nombres', 'asistencia', 'asisten', 'confirmados', 'nota', 'actualizado'];
 
@@ -85,8 +88,62 @@ function doPost(e) {
 }
 
 // ---------------------------------------------------------------------------
-// One-time setup helpers (run from the Apps Script editor)
+// Sheet menu + helpers (run from the Sheet's "Boda" menu or the script editor)
 // ---------------------------------------------------------------------------
+
+/** Adds a "Boda" menu to the Sheet. Runs automatically when the Sheet opens. */
+function onOpen() {
+  SpreadsheetApp.getUi().createMenu('Boda')
+    .addItem('1. Asignar códigos a filas nuevas', 'assignIds')
+    .addItem('2. Generar enlaces y QR', 'addLinks')
+    .addSeparator()
+    .addItem('Configurar hoja (primera vez)', 'setup')
+    .addToUi();
+}
+
+/**
+ * Fills two extra columns, "enlace" and "qr", for every row that has a code:
+ *   enlace = SITE_URL?c=CODE  (open it and the code is pre-filled)
+ *   qr     = an =IMAGE() formula that renders a QR for that link in the cell
+ * Safe to re-run; it overwrites those two columns only.
+ */
+function addLinks() {
+  assignIds();
+  var sheet = sheet_();
+  var data = sheet.getDataRange().getValues();
+  var header = data[0].map(function (h) { return String(h).trim().toLowerCase(); });
+  var col = colIndex_(data[0]);
+  var linkCol = header.indexOf('enlace');
+  if (linkCol === -1) { linkCol = header.length; sheet.getRange(1, linkCol + 1).setValue('enlace').setFontWeight('bold'); header.push('enlace'); }
+  var qrCol = header.indexOf('qr');
+  if (qrCol === -1) { qrCol = header.length; sheet.getRange(1, qrCol + 1).setValue('qr').setFontWeight('bold'); header.push('qr'); }
+  var links = [], qrs = [];
+  for (var i = 1; i < data.length; i++) {
+    var id = String(data[i][col.id] || '').trim();
+    if (!id) { links.push(['']); qrs.push(['']); continue; }
+    var url = SITE_URL + '?c=' + encodeURIComponent(id);
+    links.push([url]);
+    qrs.push(['=IMAGE("https://quickchart.io/qr?size=300&margin=1&text=' + encodeURIComponent(url) + '")']);
+  }
+  if (links.length) {
+    sheet.getRange(2, linkCol + 1, links.length, 1).setValues(links);
+    sheet.getRange(2, qrCol + 1, qrs.length, 1).setFormulas(qrs);
+    sheet.setRowHeights(2, qrs.length, 90);
+    sheet.setColumnWidth(qrCol + 1, 100);
+  }
+}
+
+/** Returns a CSV of id,invitacion,enlace — the input for tools/qr/make_qr.py. */
+function exportCodesCsv() {
+  var rows = readRows_().filter(function (r) { return r.id; });
+  var csv = 'id,invitacion,enlace\n' + rows.map(function (r) {
+    return [r.id, '"' + String(r.invitacion).replace(/"/g, '""') + '"', SITE_URL + '?c=' + encodeURIComponent(r.id)].join(',');
+  }).join('\n');
+  var file = DriveApp.createFile('boda-codigos.csv', csv, MimeType.CSV);
+  Logger.log('CSV: ' + file.getUrl());
+  return file.getUrl();
+}
+
 
 /** Creates the sheet with headers and two sample rows if it does not exist. */
 function setup() {
@@ -102,6 +159,7 @@ function setup() {
   }
   assignIds();
   addSummary_();
+  addLinks();
 }
 
 /** Gives every row without an id a short random code. Run again after adding guests. */
