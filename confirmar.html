@@ -18,7 +18,7 @@ scripts: [/assets/js/rsvp.js]
 <form id="rsvp" class="rsvp" data-endpoint="{{ site.rsvp_endpoint }}" autocomplete="off" novalidate>
   <div class="field" id="code-wrap">
     <label for="code">{% include t.html es="Código de tu invitación" en="Code from your invitation" %}</label>
-    <input type="text" id="code" name="k" autocapitalize="characters" autocomplete="off" spellcheck="false">
+    <input type="text" id="code" name="k" autocapitalize="none" autocomplete="off" autocorrect="off" spellcheck="false">
     <p id="code-hint" class="small" style="margin-top:0.5rem"></p>
     <p><button class="btn" id="code-go" type="button">{% include t.html es="Continuar" en="Continue" %}</button></p>
   </div>
