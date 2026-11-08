@@ -22,11 +22,17 @@
  * empty or missing, the check is skipped.
  */
 
+var SCRIPT_VERSION = 3;   // bump when the script changes; visible at ?diag=1
 var SHEET_NAME = 'Invitados';
 var HEADERS = ['id', 'invitacion', 'nombres', 'asistencia', 'asisten', 'confirmados', 'nota', 'actualizado'];
 var MAX_MATCHES = 8;
 
 function doGet(e) {
+  if (e && e.parameter && e.parameter.diag) {
+    // Health check: which version is deployed and whether an access code is configured.
+    var code = PropertiesService.getScriptProperties().getProperty('ACCESS_CODE');
+    return json_({ version: SCRIPT_VERSION, codeSet: !!code, codeLength: code ? code.length : 0 });
+  }
   if (!authorized_(e && e.parameter && e.parameter.k)) return json_({ matches: [], error: 'unauthorized' });
   var q = (e && e.parameter && e.parameter.q) ? String(e.parameter.q) : '';
   q = norm_(q);
