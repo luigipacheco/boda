@@ -42,9 +42,18 @@ scripts: [/assets/js/rsvp.js]
     </fieldset>
 
     <div class="field">
+      <label for="phone">{% include t.html es="Teléfono (opcional)" en="Phone (optional)" %}</label>
+      <input type="tel" id="phone" name="telefono" autocomplete="tel" maxlength="40">
+    </div>
+    <div class="field">
+      <label for="email">{% include t.html es="Correo electrónico (opcional)" en="Email (optional)" %}</label>
+      <input type="email" id="email" name="email" autocomplete="email" maxlength="120" autocapitalize="none">
+    </div>
+    <div class="field">
       <label for="note">{% include t.html es="Mensaje o alergias (opcional)" en="Message or allergies (optional)" %}</label>
       <textarea id="note" name="nota" maxlength="300"></textarea>
     </div>
+    <p class="small" style="margin-top:-0.5rem">{% include t.html es="Solo los usaremos si necesitamos contactarte sobre la boda." en="We'll only use these if we need to reach you about the wedding." %}</p>
 
     <button class="btn primary" id="submit" type="submit">{% include t.html es="Guardar respuesta" en="Save answer" %}</button>
     <p class="small" style="margin-top:1.25rem"><a href="#" id="code-change">{% include t.html es="Usar otro código" en="Use a different code" %}</a></p>

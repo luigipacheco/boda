@@ -55,6 +55,8 @@
   var namesWrap = form.querySelector('#names-wrap');
   var namesEl = form.querySelector('#names');
   var note = form.querySelector('#note');
+  var phone = form.querySelector('#phone');
+  var email = form.querySelector('#email');
   var submit = form.querySelector('#submit');
   var status = form.querySelector('#status');
   var selected = null;
@@ -119,6 +121,8 @@
       wrap.appendChild(cb); wrap.appendChild(lb); namesEl.appendChild(wrap);
     });
     note.value = m.nota || '';
+    phone.value = m.telefono || '';
+    email.value = m.email || '';
     form.querySelectorAll('input[name="asistencia"]').forEach(function (r) { r.checked = false; });
     var pre = form.querySelector('input[name="asistencia"][value="' + m.asistencia + '"]');
     if (pre) pre.checked = true;
@@ -143,7 +147,9 @@
       id: selected.id,
       asistencia: choice.value,
       asisten: choice.value === 'si' ? asisten : [],
-      nota: note.value.trim().slice(0, 300)
+      nota: note.value.trim().slice(0, 300),
+      telefono: phone.value.trim().slice(0, 40),
+      email: email.value.trim().slice(0, 120)
     };
     submit.disabled = true;
     setStatus(t('saving'));

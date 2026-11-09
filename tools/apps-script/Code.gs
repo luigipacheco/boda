@@ -15,16 +15,18 @@
  *   confirmados number attending            (written by the site)
  *   nota        guest message               (written by the site)
  *   actualizado last update time            (written by the site)
+ *   telefono    optional contact phone      (written by the site; column added automatically)
+ *   email       optional contact email      (written by the site; column added automatically)
  *
  * Sheet menu "Boda" (appears when the Sheet opens): assign codes, build links + QR.
  *
  * GET  ?code=XXXXXX -> { invitation: {id, invitacion, nombres:[...], asistencia, asisten:[...], nota} }
  *                      or { invitation: null }
  * GET  ?diag=1      -> { version, invitations }
- * POST {id, asistencia, asisten:[...], nota} -> { ok: true, ... }
+ * POST {id, asistencia, asisten:[...], nota, telefono, email} -> { ok: true, ... }
  */
 
-var SCRIPT_VERSION = 5;   // bump when the script changes; visible at ?diag=1
+var SCRIPT_VERSION = 6;   // bump when the script changes; visible at ?diag=1
 var SITE_URL = 'https://luigipacheco.github.io/boda/confirmar/';   // RSVP page; change if the domain changes
 var SHEET_NAME = 'Invitados';
 var HEADERS = ['id', 'invitacion', 'nombres', 'asistencia', 'asisten', 'confirmados', 'nota', 'actualizado'];
@@ -41,7 +43,8 @@ function doGet(e) {
     var r = rows[i];
     if (norm_(r.id) === code) {
       return json_({ invitation: { id: r.id, invitacion: r.invitacion, nombres: splitNames_(r.nombres),
-        asistencia: r.asistencia || '', asisten: splitNames_(r.asisten), nota: r.nota || '' } });
+        asistencia: r.asistencia || '', asisten: splitNames_(r.asisten), nota: r.nota || '',
+        telefono: r.telefono || '', email: r.email || '' } });
     }
   }
   return json_({ invitation: null });
@@ -56,11 +59,15 @@ function doPost(e) {
     var asistencia = String(body.asistencia || '').toLowerCase();
     var asisten = Array.isArray(body.asisten) ? body.asisten.map(function (n) { return String(n).trim(); }) : [];
     var nota = String(body.nota || '').slice(0, 300);
+    var telefono = String(body.telefono || '').trim().slice(0, 40);
+    var email = String(body.email || '').trim().slice(0, 120);
 
     if (!id) return json_({ ok: false, error: 'missing id' });
     if (asistencia !== 'si' && asistencia !== 'no') return json_({ ok: false, error: 'bad asistencia' });
 
     var sheet = sheet_();
+    var telCol = optionalCol_(sheet, 'telefono');
+    var mailCol = optionalCol_(sheet, 'email');
     var data = sheet.getDataRange().getValues();
     var col = colIndex_(data[0]);
     for (var i = 1; i < data.length; i++) {
@@ -75,6 +82,8 @@ function doPost(e) {
         sheet.getRange(row, col.asisten + 1).setValue(ok.join(', '));
         sheet.getRange(row, col.confirmados + 1).setValue(ok.length);
         sheet.getRange(row, col.nota + 1).setValue(nota);
+        sheet.getRange(row, telCol + 1).setValue(telefono);
+        sheet.getRange(row, mailCol + 1).setValue(email);
         sheet.getRange(row, col.actualizado + 1).setValue(new Date());
         return json_({ ok: true, id: id, asistencia: asistencia, asisten: ok, confirmados: ok.length });
       }
@@ -210,11 +219,25 @@ function readRows_() {
   var data = sheet_().getDataRange().getValues();
   if (data.length < 2) return [];
   var col = colIndex_(data[0]);
+  var header = data[0].map(function (x) { return String(x).trim().toLowerCase(); });
+  var extra = ['telefono', 'email'].filter(function (h) { return header.indexOf(h) !== -1; });
   return data.slice(1).filter(function (r) { return r[col.invitacion]; }).map(function (r) {
     var o = {};
     HEADERS.forEach(function (h) { o[h] = r[col[h]]; });
+    extra.forEach(function (h) { o[h] = r[header.indexOf(h)]; });
     return o;
   });
+}
+
+/** Zero-based index of an optional column, creating it (with a bold header) if missing. */
+function optionalCol_(sheet, name) {
+  var header = sheet.getRange(1, 1, 1, Math.max(sheet.getLastColumn(), 1)).getValues()[0]
+    .map(function (x) { return String(x).trim().toLowerCase(); });
+  var i = header.indexOf(name);
+  if (i !== -1) return i;
+  var c = header.filter(function (h) { return h !== ''; }).length;
+  sheet.getRange(1, c + 1).setValue(name).setFontWeight('bold');
+  return c;
 }
 
 function colIndex_(headerRow) {

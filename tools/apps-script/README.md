@@ -52,6 +52,8 @@ to `doGet` / `doPost` do.
 - Print the code on each invitation. A link with the code built in skips typing:
   `https://luigipacheco.github.io/boda/confirmar/?c=PACHECO27`
 - Guests tick who is coming; the names land in `asisten`, the count in `confirmados`.
+- Optional phone and email typed by the guest land in `telefono` and `email`.
+  Those two columns are created automatically the first time someone saves.
 - Run **assignIds** from the Apps Script editor (or just run **setup** again).
   Rows without an id are not searchable.
 - Delete the two sample rows whenever you like.
