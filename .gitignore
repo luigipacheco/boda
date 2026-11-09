@@ -5,3 +5,9 @@ _site
 vendor
 .bundle
 .DS_Store
+
+# Guest data and generated invitations stay local, never on GitHub
+private/
+tools/invitations/out/
+Invitados*.csv
+boda-codigos*.csv

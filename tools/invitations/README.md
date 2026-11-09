@@ -8,7 +8,20 @@ fonts, layout, colours, wording. Keep three things for the script to fill in:
 - a square `<rect>` with `id="qr"` → replaced by the QR code (move or resize it
   with the XML editor's id intact; in Inkscape: Object → Object Properties → ID)
 
-## Run
+## One command (recommended)
+
+1. In the Sheet: File → Download → Comma-separated values (.csv). It lands in ~/Downloads.
+2. In Terminal:
+   ```
+   cd ~/Documents/GitHub/boda
+   ./tools/invitations/run.sh
+   ```
+That finds the newest `Invitados*.csv`, writes SVG + PDF + PNG per family into
+`private/invitaciones/`, merges every PDF into `todas-las-invitaciones.pdf` for
+the printer, and opens the folder. The `private/` folder and any guest CSV are
+ignored by Git, so guest data never reaches GitHub.
+
+## Run by hand
 
 ```
 pip3 install --user segno                       # once

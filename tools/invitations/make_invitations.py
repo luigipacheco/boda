@@ -27,6 +27,7 @@ ap.add_argument("--site", default="https://luigipacheco.github.io/boda/confirmar
 ap.add_argument("--pdf", action="store_true", help="export a PDF per invitation with Inkscape")
 ap.add_argument("--png", action="store_true", help="export a 300 dpi PNG per invitation with Inkscape")
 ap.add_argument("--qr-color", default="#1f3350")
+ap.add_argument("--merge", action="store_true", help="also merge all PDFs into one file for printing (needs --pdf)")
 a = ap.parse_args()
 
 tpl = open(a.template, encoding="utf-8").read()
@@ -79,8 +80,22 @@ with open(a.csv, newline="", encoding="utf-8") as f:
         made += 1
         if ink:
             if a.pdf:
-                subprocess.run([ink, path, "--export-type=pdf", "--export-filename=" + path[:-4] + ".pdf"], check=False)
+                subprocess.run([ink, path, "--export-type=pdf", "--export-filename=" + path[:-4] + ".pdf"], check=False, stderr=subprocess.DEVNULL)
             if a.png:
-                subprocess.run([ink, path, "--export-type=png", "--export-dpi=300", "--export-filename=" + path[:-4] + ".png"], check=False)
+                subprocess.run([ink, path, "--export-type=png", "--export-dpi=300", "--export-filename=" + path[:-4] + ".png"], check=False, stderr=subprocess.DEVNULL)
 
 print(f"{made} invitations written to {a.out}/")
+
+if a.merge and a.pdf and ink:
+    try:
+        from pypdf import PdfWriter
+    except ImportError:
+        sys.exit("pypdf is missing for --merge: run  pip3 install --user pypdf")
+    w = PdfWriter()
+    pdfs = sorted(f for f in os.listdir(a.out) if f.endswith(".pdf") and not f.startswith("todas"))
+    for f in pdfs:
+        w.append(os.path.join(a.out, f))
+    merged = os.path.join(a.out, "todas-las-invitaciones.pdf")
+    with open(merged, "wb") as fh:
+        w.write(fh)
+    print(f"merged {len(pdfs)} PDFs into {merged}")
