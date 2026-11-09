@@ -18,7 +18,9 @@ fonts, layout, colours, wording. Keep three things for the script to fill in:
    ```
 That finds the newest `Invitados*.csv`, writes one PDF and one PNG per family
 into `private/invitaciones/`, named by family ("Familia Pacheco Alcalá.pdf"),
-and opens the folder. Send each family its own file. The `private/` folder and any guest CSV are
+plus that family's QR on its own ("Familia Pacheco Alcalá QR.png" / ".svg"),
+and opens the folder. The QR on the card is placed automatically; the separate
+QR files are for a different design or for sending alone. The `private/` folder and any guest CSV are
 ignored by Git, so guest data never reaches GitHub.
 
 ## Run by hand

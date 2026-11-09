@@ -79,6 +79,10 @@ with open(a.csv, newline="", encoding="utf-8") as f:
         if os.path.exists(path):          # two families with the same name: add the code
             path = os.path.join(a.out, f"{safe} ({code}).svg")
         open(path, "w", encoding="utf-8").write(svg)
+        # standalone QR for this family, in case it goes on a different design
+        qr = segno.make(link, error="m")
+        qr.save(path[:-4] + " QR.png", dark=a.qr_color, light="#ffffff", scale=12, border=2)
+        qr.save(path[:-4] + " QR.svg", dark=a.qr_color, light=None, border=2)
         made += 1
         if ink:
             if a.pdf:
