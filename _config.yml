@@ -36,7 +36,7 @@ reception:
 
 # RSVP backend: paste the Apps Script web-app URL here (see tools/apps-script/README.md).
 # Leave empty while testing; the form shows a "coming soon" notice.
-rsvp_endpoint: "https://script.google.com/macros/s/AKfycbxnOg60KMg3WrsrwwA0yoDr0whl326BDlX7gEZL2_EG3U48qstTouhMzDPMsWJV23GN/exec"
+rsvp_endpoint: "https://script.google.com/macros/s/AKfycbwOblaR-1YbRuC6YVkR9xgYpJyWXD17f96M27j7nsZVNsK4y61hnVykSlQzavS7tysD/exec"
 
 # Contact shown on the RSVP page for people who can't find their name
 contact_email: luigipach@gmail.com
