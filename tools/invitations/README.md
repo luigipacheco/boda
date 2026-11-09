@@ -16,9 +16,9 @@ fonts, layout, colours, wording. Keep three things for the script to fill in:
    cd ~/Documents/GitHub/boda
    ./tools/invitations/run.sh
    ```
-That finds the newest `Invitados*.csv`, writes SVG + PDF + PNG per family into
-`private/invitaciones/`, merges every PDF into `todas-las-invitaciones.pdf` for
-the printer, and opens the folder. The `private/` folder and any guest CSV are
+That finds the newest `Invitados*.csv`, writes one PDF and one PNG per family
+into `private/invitaciones/`, named by family ("Familia Pacheco Alcalá.pdf"),
+and opens the folder. Send each family its own file. The `private/` folder and any guest CSV are
 ignored by Git, so guest data never reaches GitHub.
 
 ## Run by hand
@@ -29,7 +29,7 @@ python3 tools/invitations/make_invitations.py ~/Downloads/Invitados.csv --out ~/
 ```
 
 The CSV is the "Invitados" sheet exported with File → Download → CSV. You get one
-SVG per family named by its code. Add `--pdf` (or `--png` for 300 dpi images) to
+SVG per family named by the family name. Add `--pdf` (or `--png` for 300 dpi images) to
 export through Inkscape automatically; Inkscape must be installed
 (https://inkscape.org, free).
 
@@ -37,5 +37,3 @@ Fonts: the template asks for Cormorant Garamond and IBM Plex Mono, the same as t
 website. Install them (free on Google Fonts) so the cards match; otherwise Georgia
 and Menlo are used.
 
-To print all PDFs as one file: select them in Finder → right-click → Quick Actions
-→ Create PDF.

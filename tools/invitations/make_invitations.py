@@ -27,7 +27,6 @@ ap.add_argument("--site", default="https://luigipacheco.github.io/boda/confirmar
 ap.add_argument("--pdf", action="store_true", help="export a PDF per invitation with Inkscape")
 ap.add_argument("--png", action="store_true", help="export a 300 dpi PNG per invitation with Inkscape")
 ap.add_argument("--qr-color", default="#1f3350")
-ap.add_argument("--merge", action="store_true", help="also merge all PDFs into one file for printing (needs --pdf)")
 a = ap.parse_args()
 
 tpl = open(a.template, encoding="utf-8").read()
@@ -74,8 +73,11 @@ with open(a.csv, newline="", encoding="utf-8") as f:
         # insert the QR first (positions refer to the untouched template), then the texts
         svg = tpl[:m.start()] + qr_group(link) + tpl[m.end():]
         svg = svg.replace("{{FAMILIA}}", escape(fam)).replace("{{CODIGO}}", escape(code))
-        safe = "".join(ch for ch in code if ch.isalnum() or ch in "-_")
+        # file name = family name (accents kept, unsafe characters removed), e.g. "Familia Pacheco Alcalá.pdf"
+        safe = re.sub(r'[\\/:*?"<>|]+', "", fam).strip() or code
         path = os.path.join(a.out, f"{safe}.svg")
+        if os.path.exists(path):          # two families with the same name: add the code
+            path = os.path.join(a.out, f"{safe} ({code}).svg")
         open(path, "w", encoding="utf-8").write(svg)
         made += 1
         if ink:
@@ -86,16 +88,3 @@ with open(a.csv, newline="", encoding="utf-8") as f:
 
 print(f"{made} invitations written to {a.out}/")
 
-if a.merge and a.pdf and ink:
-    try:
-        from pypdf import PdfWriter
-    except ImportError:
-        sys.exit("pypdf is missing for --merge: run  pip3 install --user pypdf")
-    w = PdfWriter()
-    pdfs = sorted(f for f in os.listdir(a.out) if f.endswith(".pdf") and not f.startswith("todas"))
-    for f in pdfs:
-        w.append(os.path.join(a.out, f))
-    merged = os.path.join(a.out, "todas-las-invitaciones.pdf")
-    with open(merged, "wb") as fh:
-        w.write(fh)
-    print(f"merged {len(pdfs)} PDFs into {merged}")
