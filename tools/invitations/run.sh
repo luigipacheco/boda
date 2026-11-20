@@ -1,5 +1,5 @@
 #!/bin/zsh
-# One command: newest guest CSV -> one PDF + PNG per family, named by family.
+# One command: newest guest CSV -> one invitation PNG per family, named by family.
 # Output goes to private/invitaciones/, which Git ignores.
 #
 #   ./tools/invitations/run.sh                 # uses the newest Invitados*.csv in ~/Downloads or private/
@@ -14,5 +14,5 @@ fi
 OUT="private/invitaciones"
 echo "Using: $CSV"
 rm -rf "$OUT"
-python3 tools/invitations/make_invitations.py "$CSV" --out "$OUT" --design b --pdf --png
+python3 tools/invitations/make_invitations.py "$CSV" --out "$OUT" --design b --png-only
 open "$OUT"

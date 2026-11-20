@@ -30,6 +30,7 @@ ap.add_argument("--png", action="store_true", help="export a 300 dpi PNG per inv
 ap.add_argument("--qr-color", default="#1f4e8c")
 ap.add_argument("--lang", default="row", choices=["es", "en", "both", "row"],
                 help="es / en / both, or 'row' = use the 'idioma' column (es if empty)")
+ap.add_argument("--png-only", action="store_true", help="write only the invitation PNG (no SVG, PDF or QR files)")
 ap.add_argument("--only", help="generate just the invitation with this code (for previews)")
 a = ap.parse_args()
 
@@ -115,19 +116,24 @@ def make_one(code, fam, lang, suffix):
     if os.path.exists(path):          # two families with the same name: add the code
         path = os.path.join(a.out, f"{safe} ({code}).svg")
     open(path, "w", encoding="utf-8").write(svg)
-    # standalone QR for this family, in case it goes on a different design
-    qr = segno.make(link, error="m")
-    qr.save(path[:-4] + " QR.png", dark=a.qr_color, light="#ffffff", scale=12, border=2)
-    qr.save(path[:-4] + " QR.svg", dark=a.qr_color, light=None, border=2)
+    if not a.png_only:
+        # standalone QR for this family, in case it goes on a different design
+        qr = segno.make(link, error="m")
+        qr.save(path[:-4] + " QR.png", dark=a.qr_color, light="#ffffff", scale=12, border=2)
+        qr.save(path[:-4] + " QR.svg", dark=a.qr_color, light=None, border=2)
     if ink:
         if a.pdf:
             subprocess.run([ink, path, "--export-type=pdf", "--export-filename=" + path[:-4] + ".pdf"], check=False, stderr=subprocess.DEVNULL)
         if a.png:
             subprocess.run([ink, path, "--export-type=png", "--export-dpi=300", "--export-filename=" + path[:-4] + ".png"], check=False, stderr=subprocess.DEVNULL)
+    if a.png_only:
+        os.remove(path)          # keep just the PNG
     return 1
 
 
 os.makedirs(a.out, exist_ok=True)
+if a.png_only:
+    a.png, a.pdf = True, False
 ink = inkscape() if (a.pdf or a.png) else None
 if (a.pdf or a.png) and not ink:
     print("Inkscape not found: writing SVGs only. Install Inkscape to get PDF/PNG.")
