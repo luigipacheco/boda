@@ -12,9 +12,9 @@
     <style>
       .serif { font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif; }
       .mono  { font-family: "IBM Plex Mono", Menlo, Consolas, monospace; }
-      .ink   { fill: #2c4a73; }
-      .blue  { fill: #2c4a73; }
-      .muted { fill: #2c4a73; fill-opacity: 0.7; }
+      .ink   { fill: #0072bb; }
+      .blue  { fill: #0072bb; }
+      .muted { fill: #0072bb; fill-opacity: 0.7; }
     </style>
   </defs>
 
@@ -22,7 +22,7 @@
   <rect width="127" height="178" fill="#f7efdf"/>
 
   <!-- top rule + label -->
-  <line x1="14" y1="18" x2="113" y2="18" stroke="#2c4a73" stroke-opacity="0.45" stroke-width="0.3"/>
+  <line x1="14" y1="18" x2="113" y2="18" stroke="#0072bb" stroke-opacity="0.45" stroke-width="0.3"/>
   <text x="14" y="26" class="mono blue" font-size="2.6" letter-spacing="0.5">NOS CASAMOS</text>
 
   <!-- names -->
@@ -36,7 +36,7 @@
   <text x="14" y="107" class="serif ink" font-size="4.6">Recepción · Ex Hacienda Cruz de Cantera · 20:30 h</text>
 
   <!-- personal line -->
-  <line x1="14" y1="118" x2="113" y2="118" stroke="#2c4a73" stroke-opacity="0.45" stroke-width="0.3"/>
+  <line x1="14" y1="118" x2="113" y2="118" stroke="#0072bb" stroke-opacity="0.45" stroke-width="0.3"/>
   <text x="14" y="126" class="mono blue" font-size="2.6" letter-spacing="0.5">CON CARIÑO PARA</text>
   <text x="14" y="136" class="serif ink" font-size="7" font-style="italic">{{FAMILIA}}</text>
 
@@ -47,5 +47,5 @@
   <text x="14" y="162" class="mono muted" font-size="2.6">CÓDIGO  {{CODIGO}}</text>
 
   <!-- bottom rule -->
-  <line x1="14" y1="168" x2="113" y2="168" stroke="#2c4a73" stroke-opacity="0.45" stroke-width="0.3"/>
+  <line x1="14" y1="168" x2="113" y2="168" stroke="#0072bb" stroke-opacity="0.45" stroke-width="0.3"/>
 </svg>

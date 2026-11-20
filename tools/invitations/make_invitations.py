@@ -26,7 +26,7 @@ ap.add_argument("--out", default="invitaciones")
 ap.add_argument("--site", default="https://luigipacheco.github.io/boda/confirmar/")
 ap.add_argument("--pdf", action="store_true", help="export a PDF per invitation with Inkscape")
 ap.add_argument("--png", action="store_true", help="export a 300 dpi PNG per invitation with Inkscape")
-ap.add_argument("--qr-color", default="#2c4a73")
+ap.add_argument("--qr-color", default="#0072bb")
 ap.add_argument("--lang", default="row", choices=["es", "en", "both", "row"],
                 help="es / en / both, or 'row' = use the 'idioma' column (es if empty)")
 ap.add_argument("--only", help="generate just the invitation with this code (for previews)")
