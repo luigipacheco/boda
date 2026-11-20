@@ -108,7 +108,7 @@ def make_one(code, fam, lang, suffix):
     svg = svg.replace("{{FAMILIA}}", escape(fam)).replace("{{CODIGO}}", escape(code))
     svg = fit_name(svg, fam)
     # file name = family name (accents kept, unsafe characters removed), e.g. "Familia Pacheco Alcalá.pdf"
-    safe = re.sub(r'[\\/:*?"<>|]+', "", fam).strip() or code
+    safe = re.sub(r'[\\/:*?"<>|]+', "", fam).strip().rstrip(". ") or code   # no "Sra..pdf"
     if suffix:
         safe += " (EN)" if lang == "en" else " (ES)"
     path = os.path.join(a.out, f"{safe}.svg")
