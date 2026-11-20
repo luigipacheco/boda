@@ -22,18 +22,21 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ap = argparse.ArgumentParser()
 ap.add_argument("csv")
 ap.add_argument("--template", default=os.path.join(HERE, "template.svg"))
+ap.add_argument("--design", choices=["a", "b"], help="shortcut: a = template.svg, b = template_b.svg")
 ap.add_argument("--out", default="invitaciones")
 ap.add_argument("--site", default="https://luigipacheco.github.io/boda/confirmar/")
 ap.add_argument("--pdf", action="store_true", help="export a PDF per invitation with Inkscape")
 ap.add_argument("--png", action="store_true", help="export a 300 dpi PNG per invitation with Inkscape")
-ap.add_argument("--qr-color", default="#0072bb")
+ap.add_argument("--qr-color", default="#1f4e8c")
 ap.add_argument("--lang", default="row", choices=["es", "en", "both", "row"],
                 help="es / en / both, or 'row' = use the 'idioma' column (es if empty)")
 ap.add_argument("--only", help="generate just the invitation with this code (for previews)")
 a = ap.parse_args()
 
+if a.design:
+    a.template = os.path.join(HERE, "template.svg" if a.design == "a" else "template_b.svg")
 TPL_ES = open(a.template, encoding="utf-8").read()
-_en_path = os.path.join(os.path.dirname(a.template), "template_en.svg")
+_en_path = a.template[:-4] + "_en.svg"   # template.svg -> template_en.svg, template_b.svg -> template_b_en.svg
 TPL_EN = open(_en_path, encoding="utf-8").read() if os.path.exists(_en_path) else None
 tpl = TPL_ES
 m = re.search(r'<rect\b[^<>]*\bid="qr"[^<>]*/>', tpl)
@@ -73,6 +76,9 @@ def _font_measurer():
 measure = _font_measurer()
 name_el = re.search(r'<text\b[^>]*>\{\{FAMILIA\}\}</text>', tpl)
 name_size = float(re.search(r'font-size="([\d.]+)"', name_el.group(0)).group(1)) if name_el else None
+_nm = re.search(r'data-name-max="([\d.]+)"', name_el.group(0)) if name_el else None
+if _nm:
+    NAME_MAX_MM = float(_nm.group(1))
 
 def fit_name(svg, fam):
     if not name_size:
