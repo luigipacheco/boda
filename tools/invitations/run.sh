@@ -14,5 +14,5 @@ fi
 OUT="private/invitaciones"
 echo "Using: $CSV"
 rm -rf "$OUT"
-python3 tools/invitations/make_invitations.py "$CSV" --out "$OUT" --pdf --png
+python3 tools/invitations/make_invitations.py "$CSV" --out "$OUT" --design b --pdf --png
 open "$OUT"
