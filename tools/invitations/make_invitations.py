@@ -26,10 +26,16 @@ ap.add_argument("--out", default="invitaciones")
 ap.add_argument("--site", default="https://luigipacheco.github.io/boda/confirmar/")
 ap.add_argument("--pdf", action="store_true", help="export a PDF per invitation with Inkscape")
 ap.add_argument("--png", action="store_true", help="export a 300 dpi PNG per invitation with Inkscape")
-ap.add_argument("--qr-color", default="#1f3350")
+ap.add_argument("--qr-color", default="#2c4a73")
+ap.add_argument("--lang", default="row", choices=["es", "en", "both", "row"],
+                help="es / en / both, or 'row' = use the 'idioma' column (es if empty)")
+ap.add_argument("--only", help="generate just the invitation with this code (for previews)")
 a = ap.parse_args()
 
-tpl = open(a.template, encoding="utf-8").read()
+TPL_ES = open(a.template, encoding="utf-8").read()
+_en_path = os.path.join(os.path.dirname(a.template), "template_en.svg")
+TPL_EN = open(_en_path, encoding="utf-8").read() if os.path.exists(_en_path) else None
+tpl = TPL_ES
 m = re.search(r'<rect\b[^<>]*\bid="qr"[^<>]*/>', tpl)
 if not m:
     sys.exit('template has no element with id="qr"')
@@ -51,11 +57,69 @@ def qr_group(link):
     return (f'<g id="qr" transform="translate({qx} {qy}) scale({scale:.5f})">'
             f'<path d="{"".join(d)}" fill="{a.qr_color}" shape-rendering="crispEdges"/></g>')
 
+# --- fit the family name: shrink its font size if the name is too wide --------
+NAME_MAX_MM = 96.0
+def _font_measurer():
+    try:
+        from fontTools.ttLib import TTFont
+        for path in (os.path.expanduser("~/Library/Fonts/CormorantGaramond-Italic[wght].ttf"),
+                     "/Library/Fonts/CormorantGaramond-Italic[wght].ttf"):
+            if os.path.exists(path):
+                f = TTFont(path); cmap = f.getBestCmap(); hm = f["hmtx"]; upm = f["head"].unitsPerEm
+                return lambda txt, size: sum(hm[cmap.get(ord(c), cmap[32])][0] for c in txt) / upm * size
+    except Exception:
+        pass
+    return lambda txt, size: len(txt) * size * 0.42   # rough fallback
+measure = _font_measurer()
+name_el = re.search(r'<text\b[^>]*>\{\{FAMILIA\}\}</text>', tpl)
+name_size = float(re.search(r'font-size="([\d.]+)"', name_el.group(0)).group(1)) if name_el else None
+
+def fit_name(svg, fam):
+    if not name_size:
+        return svg
+    size = name_size
+    w = measure(fam, size)
+    if w > NAME_MAX_MM:
+        size = round(size * NAME_MAX_MM / w, 2)
+    el = re.search(r'<text\b[^>]*>' + re.escape(escape(fam)) + r'</text>', svg)
+    if not el or size == name_size:
+        return svg
+    new = re.sub(r'font-size="[\d.]+"', f'font-size="{size}"', el.group(0), count=1)
+    return svg[:el.start()] + new + svg[el.end():]
+
 def inkscape():
     for c in ("inkscape", "/Applications/Inkscape.app/Contents/MacOS/inkscape"):
         if shutil.which(c) or os.path.exists(c):
             return c
     return None
+
+def make_one(code, fam, lang, suffix):
+    link = a.site + "?c=" + urllib.parse.quote(code) + ("&lang=en" if lang == "en" else "")
+    tpl = TPL_EN if (lang == "en" and TPL_EN) else TPL_ES
+    m = re.search(r'<rect\b[^<>]*\bid="qr"[^<>]*/>', tpl)
+    # insert the QR first (positions refer to the untouched template), then the texts
+    svg = tpl[:m.start()] + qr_group(link) + tpl[m.end():]
+    svg = svg.replace("{{FAMILIA}}", escape(fam)).replace("{{CODIGO}}", escape(code))
+    svg = fit_name(svg, fam)
+    # file name = family name (accents kept, unsafe characters removed), e.g. "Familia Pacheco Alcalá.pdf"
+    safe = re.sub(r'[\\/:*?"<>|]+', "", fam).strip() or code
+    if suffix:
+        safe += " (EN)" if lang == "en" else " (ES)"
+    path = os.path.join(a.out, f"{safe}.svg")
+    if os.path.exists(path):          # two families with the same name: add the code
+        path = os.path.join(a.out, f"{safe} ({code}).svg")
+    open(path, "w", encoding="utf-8").write(svg)
+    # standalone QR for this family, in case it goes on a different design
+    qr = segno.make(link, error="m")
+    qr.save(path[:-4] + " QR.png", dark=a.qr_color, light="#ffffff", scale=12, border=2)
+    qr.save(path[:-4] + " QR.svg", dark=a.qr_color, light=None, border=2)
+    if ink:
+        if a.pdf:
+            subprocess.run([ink, path, "--export-type=pdf", "--export-filename=" + path[:-4] + ".pdf"], check=False, stderr=subprocess.DEVNULL)
+        if a.png:
+            subprocess.run([ink, path, "--export-type=png", "--export-dpi=300", "--export-filename=" + path[:-4] + ".png"], check=False, stderr=subprocess.DEVNULL)
+    return 1
+
 
 os.makedirs(a.out, exist_ok=True)
 ink = inkscape() if (a.pdf or a.png) else None
@@ -66,29 +130,20 @@ made = 0
 with open(a.csv, newline="", encoding="utf-8") as f:
     for row in csv.DictReader(f):
         code = (row.get("id") or "").strip()
-        fam = (row.get("invitacion") or "").strip()
+        fam = " ".join((row.get("invitacion") or "").split())   # collapse stray spaces
         if not code or not fam:
             continue
-        link = (row.get("enlace") or "").strip() or a.site + "?c=" + urllib.parse.quote(code)
-        # insert the QR first (positions refer to the untouched template), then the texts
-        svg = tpl[:m.start()] + qr_group(link) + tpl[m.end():]
-        svg = svg.replace("{{FAMILIA}}", escape(fam)).replace("{{CODIGO}}", escape(code))
-        # file name = family name (accents kept, unsafe characters removed), e.g. "Familia Pacheco Alcalá.pdf"
-        safe = re.sub(r'[\\/:*?"<>|]+', "", fam).strip() or code
-        path = os.path.join(a.out, f"{safe}.svg")
-        if os.path.exists(path):          # two families with the same name: add the code
-            path = os.path.join(a.out, f"{safe} ({code}).svg")
-        open(path, "w", encoding="utf-8").write(svg)
-        # standalone QR for this family, in case it goes on a different design
-        qr = segno.make(link, error="m")
-        qr.save(path[:-4] + " QR.png", dark=a.qr_color, light="#ffffff", scale=12, border=2)
-        qr.save(path[:-4] + " QR.svg", dark=a.qr_color, light=None, border=2)
-        made += 1
-        if ink:
-            if a.pdf:
-                subprocess.run([ink, path, "--export-type=pdf", "--export-filename=" + path[:-4] + ".pdf"], check=False, stderr=subprocess.DEVNULL)
-            if a.png:
-                subprocess.run([ink, path, "--export-type=png", "--export-dpi=300", "--export-filename=" + path[:-4] + ".png"], check=False, stderr=subprocess.DEVNULL)
+        if a.only and code.lower() != a.only.lower():
+            continue
+        if a.lang == "row":
+            langs = ["en"] if (row.get("idioma") or "").strip().lower().startswith("en") else ["es"]
+        elif a.lang == "both":
+            langs = ["es", "en"]
+        else:
+            langs = [a.lang]
+        for lang in langs:
+            made += make_one(code, fam, lang, len(langs) > 1)
+        continue
 
 print(f"{made} invitations written to {a.out}/")
 
